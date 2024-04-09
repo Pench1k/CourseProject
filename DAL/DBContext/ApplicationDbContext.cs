@@ -18,17 +18,17 @@ namespace DAL.DbContext
 
         }
 
-        DbSet<Facultyes> Faculty { get; set; }
-        DbSet<Departments> Departments { get; set; }
-        DbSet<Groups> Groups { get; set; }
-        DbSet<Students> Students { get; set; }
-        DbSet<Workers> Workers { get; set; }
-        DbSet<Disciplines> Disciplines { get; set; }
-        DbSet<Schedules> Schedules { get; set; }
-        DbSet<Slots> Slots { get; set; }
-        DbSet<SlotsSchedules> SlotsSchedules { get;set;}
-        DbSet<Pairs> Pairs { get; set; }
-        DbSet<Marks> Marks { get; set; }
+        public DbSet<Facultyes> Facultyes { get; set; }
+        public DbSet<Departments> Departments { get; set; }
+        public DbSet<Groups> Groups { get; set; }
+        public DbSet<Students> Students { get; set; }
+        public DbSet<Workers> Workers { get; set; }
+        public DbSet<Disciplines> Disciplines { get; set; }
+        public DbSet<Schedules> Schedules { get; set; }
+        public DbSet<Slots> Slots { get; set; }
+        public DbSet<SlotsSchedules> SlotsSchedules { get;set;}
+        public DbSet<Pairs> Pairs { get; set; }
+        public DbSet<Marks> Marks { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

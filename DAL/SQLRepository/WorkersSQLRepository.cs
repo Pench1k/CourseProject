@@ -1,38 +1,44 @@
-﻿using DAL.Interfaces;
+﻿using DAL.DbContext;
+using DAL.Interfaces;
 using DAL.Models;
 
 namespace DAL.SQLRepository
 {
     public class WorkersSQLRepository : IWorkersRepository
     {
+        private readonly ApplicationDbContext _context;
+
+        public WorkersSQLRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Workers entity)
         {
-            throw new NotImplementedException();
+            _context.Workers.Add(entity);   
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var deletWorker = _context.Workers.Find(id);
+            if (deletWorker != null)
+            {
+                _context.Workers.Remove(deletWorker);
+                _context.SaveChanges();
+            }
+            else
+                throw new Exception("Такой записи не существует");
         }
 
-        public Workers Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Workers Get(int id) => _context.Workers.Find(id);
+        
 
-        public IEnumerable<Workers> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
+        public List<Workers> GetAll() => _context.Workers.ToList();
+        
         public void Update(Workers entity)
         {
-            throw new NotImplementedException();
+            _context.Workers.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using DAL.DbContext;
 using DAL.Interfaces;
 using DAL.Models;
 
@@ -6,34 +7,36 @@ namespace DAL.SQLRepository
 {
     public class PairsSQLRepository : IPairsRepository
     {
+        private readonly ApplicationDbContext _context;
+
+        public PairsSQLRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Pairs entity)
         {
-            throw new NotImplementedException();
+            _context.Pairs.Add(entity); 
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var deletPairs = _context.Pairs.Find(id);
+            if (deletPairs != null)
+            {
+                _context.Pairs.Remove(deletPairs);  
+                _context.SaveChanges();
+            }
         }
 
-        public Pairs Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Pairs> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
+        public Pairs? Get(int id) => _context.Pairs.Find(id);
+    
+        public List<Pairs> GetAll() => _context.Pairs.ToList(); 
+        
         public void Update(Pairs entity)
         {
-            throw new NotImplementedException();
+            _context.Pairs.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

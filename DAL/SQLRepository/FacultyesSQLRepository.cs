@@ -1,4 +1,5 @@
-﻿using DAL.Interfaces;
+﻿using DAL.DbContext;
+using DAL.Interfaces;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -10,34 +11,41 @@ namespace DAL.SQLRepository
 {
     public class FacultyesSQLRepository : IFacultyesRepository
     {
+        private readonly ApplicationDbContext _context;
+        public FacultyesSQLRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Facultyes entity)
         {
-            throw new NotImplementedException();
+            _context.Facultyes.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var deletFacultyes = _context.Facultyes.Find(id);
+            if (deletFacultyes != null)
+            {
+                _context.Facultyes.Remove(deletFacultyes);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Такой записи больше нету");
+            }
         }
 
-        public Facultyes Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Facultyes? Get(int id) => _context.Facultyes.Find(id);
+       
 
-        public IEnumerable<Facultyes> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public List<Facultyes> GetAll() => _context.Facultyes.ToList();
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
 
         public void Update(Facultyes entity)
         {
-            throw new NotImplementedException();
+            _context.Facultyes.Update(entity);  
+            _context.SaveChanges(); 
         }
     }
 }

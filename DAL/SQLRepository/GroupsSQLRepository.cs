@@ -1,38 +1,44 @@
-﻿using DAL.Interfaces;
+﻿using DAL.DbContext;
+using DAL.Interfaces;
 using DAL.Models;
 
 namespace DAL.SQLRepository
 {
     public class GroupsSQLRepository : IGroupsReporitory
     {
+        private readonly ApplicationDbContext _context;
+
+        public GroupsSQLRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Groups entity)
         {
-            throw new NotImplementedException();
+            _context.Groups.Add(entity);    
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var deleteGroup = _context.Groups.Find(id);
+            if (deleteGroup != null)
+            {
+                _context.Groups.Remove(deleteGroup);
+                _context.SaveChanges();
+            }
+            else
+                throw new Exception("Такой записи не существует");
         }
 
-        public Groups Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Groups? Get(int id) => _context.Groups.Find(id);
+       
 
-        public IEnumerable<Groups> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
+        public List<Groups> GetAll() => _context.Groups.ToList();
+     
         public void Update(Groups entity)
         {
-            throw new NotImplementedException();
+            _context.Groups.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

@@ -1,38 +1,43 @@
-﻿using DAL.Interfaces;
+﻿using DAL.DbContext;
+using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace DAL.SQLRepository
 {
     public class DisciplinesSQLRepository : IDisciplinesReporistory
     {
+        private readonly ApplicationDbContext _context;
+
+        public DisciplinesSQLRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Disciplines entity)
         {
-            throw new NotImplementedException();
+            _context.Disciplines.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var deleteDisciplines = _context.Disciplines.Find(id);
+            if (deleteDisciplines != null)
+            {
+                _context.Disciplines.Remove(deleteDisciplines); 
+                _context.SaveChanges();
+            }
         }
 
-        public Disciplines Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public Disciplines? Get(int id) => _context.Disciplines.Find(id);   
 
-        public IEnumerable<Disciplines> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
+        public List<Disciplines> GetAll() => _context.Disciplines.ToList();
 
         public void Update(Disciplines entity)
         {
-            throw new NotImplementedException();
+            _context.Disciplines.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
