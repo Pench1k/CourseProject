@@ -11,7 +11,7 @@ namespace DAL.Models
         public int Course { get; set; }
 
         public int DepartmentId { get; set; }
-        public Department Department { get;set; }
+        public Departments Department { get;set; }
 
         public List<Students> Students { get; set; } 
         

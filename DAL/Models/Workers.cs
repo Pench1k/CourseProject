@@ -12,7 +12,7 @@ namespace DAL.Models
         public IdentityUser User { get; set; }
         public int DepartmentId {get; set; }
 
-        public Department Department { get; set; }
+        public Departments Department { get; set; }
 
         public List<Schedules> Schedules { get; set; }  
     }

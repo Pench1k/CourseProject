@@ -18,8 +18,8 @@ namespace DAL.DbContext
 
         }
 
-        DbSet<Faculty> Faculty { get; set; }
-        DbSet<Department> Departments { get; set; }
+        DbSet<Facultyes> Faculty { get; set; }
+        DbSet<Departments> Departments { get; set; }
         DbSet<Groups> Groups { get; set; }
         DbSet<Students> Students { get; set; }
         DbSet<Workers> Workers { get; set; }

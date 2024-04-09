@@ -2,7 +2,7 @@
 
 namespace DAL.Models
 {
-    public class Department
+    public class Departments
     {
         [Key]
         public int DepartmentId { get; set; }
@@ -11,7 +11,7 @@ namespace DAL.Models
         public string NameDepartment { get; set; }
 
         public int FacultyId { get; set; }
-        public Faculty Faculty{ get; set; }
+        public Facultyes Faculty{ get; set; }
 
         public List<Groups> GroupsAtTheDepartment { get; set; }
 
