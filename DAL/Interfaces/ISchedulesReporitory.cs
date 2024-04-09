@@ -1,6 +1,8 @@
-﻿namespace DAL.Interfaces
+﻿using DAL.Models;
+
+namespace DAL.Interfaces
 {
-    public interface ISchedulesReporitory
+    public interface ISchedulesReporitory : IRepository<Schedules>
     {
 
     }
