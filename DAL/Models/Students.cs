@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
-    public class Student 
+    public class Students 
     {
+        [Key]
         public int StudentId { get; set; }
 
         public string UserId { get; set; } 

@@ -15,7 +15,7 @@ namespace DAL.Models
 
         public List<Groups> GroupsAtTheDepartment { get; set; }
 
-        public List<Worker> WorkerAtTheDepartment { get; set;}
+        public List<Workers> WorkerAtTheDepartment { get; set;}
 
         //Добавить поле замКафедры
     }

@@ -21,14 +21,15 @@ namespace DAL.DbContext
         DbSet<Faculty> Faculty { get; set; }
         DbSet<Department> Departments { get; set; }
         DbSet<Groups> Groups { get; set; }
-        DbSet<Student> Students { get; set; }
-        DbSet<Worker> Workers { get; set; }
+        DbSet<Students> Students { get; set; }
+        DbSet<Workers> Workers { get; set; }
         DbSet<Disciplines> Disciplines { get; set; }
-        DbSet<Schedule> Schedules { get; set; }
+        DbSet<Schedules> Schedules { get; set; }
         DbSet<Slots> Slots { get; set; }
-        DbSet<SlotsSchedules> SlotsShedules { get; set; }
+        DbSet<SlotsSchedules> SlotsSchedules { get;set;}
+        DbSet<Pairs> Pairs { get; set; }
+        DbSet<Marks> Marks { get; set; }
         
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Initial Catalog=ElectronicMagazineDataBasec;Database=ElectronicMagazineDataBasec;Trusted_Connection=True;");
@@ -36,7 +37,12 @@ namespace DAL.DbContext
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Groups>().HasMany(x => x.Schedules).WithMany(x => x.Groups);         
+            builder.Entity<Workers>()
+            .HasMany(w => w.Schedules)
+            .WithOne(s => s.Worker)
+            .HasForeignKey(s => s.WorkerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }
