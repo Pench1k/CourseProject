@@ -2,7 +2,7 @@
 
 namespace BLL.Interfaces
 {
-    public interface IDepartmentsService : IService<DepartmentsDTO>
+    public interface IDepartmentsService: IService<DepartmentsDTO>
     {
 
     }

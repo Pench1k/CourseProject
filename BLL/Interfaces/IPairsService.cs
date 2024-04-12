@@ -1,8 +1,8 @@
-﻿using DAL.Models;
+﻿using BLL.DTO;
 
 namespace BLL.Interfaces
 {
-    public interface IPairsService : IService<Pairs>
+    public interface IPairsService : IService<PairsDTO>
     {
     }
 }
