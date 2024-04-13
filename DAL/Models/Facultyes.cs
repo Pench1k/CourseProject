@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Facultyes
     {
         [Key]
-        public int FacultyId { get; set; }
+        public int Id { get; set; }
         
         public string NameFaculty { get; set; }
 

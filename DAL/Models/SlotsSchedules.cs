@@ -5,7 +5,7 @@ namespace DAL.Models
     public class SlotsSchedules
     {
         [Key]
-        public int SlotsSchedulesId { get; set; }
+        public int Id { get; set; }
         
         public int SlotsId { get; set; }
         public Slots Slots { get; set; }

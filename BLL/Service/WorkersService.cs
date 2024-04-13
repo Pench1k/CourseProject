@@ -27,6 +27,6 @@ namespace BLL.Service
         public List<WorkersDTO> GetAll() => _mapper.Map<List<WorkersDTO>>(_workersRepository.GetAll());
 
 
-        public void Update(WorkersDTO entity) => _workersRepository.Update(_mapper.Map<Workers>(entity));-
+        public void Update(WorkersDTO entity) => _workersRepository.Update(_mapper.Map<Workers>(entity));
     }
 }

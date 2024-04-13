@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using BLL.DTO;
 using BLL.Interfaces;
 using DAL.Interfaces;
@@ -11,6 +10,13 @@ namespace BLL.Service
     {
         private readonly IMarksRepository _marksRepository;
         private readonly IMapper _mapper;
+
+        public MarksService(IMarksRepository marksRepository, IMapper mapper)
+        {
+            _marksRepository = marksRepository;
+            _mapper = mapper;
+        }
+
 
         public void Create(MarksDTO entity) => _marksRepository.Create(_mapper.Map<Marks>(entity));
 

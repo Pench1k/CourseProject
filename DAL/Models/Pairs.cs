@@ -2,7 +2,7 @@
 {
     public class Pairs
     {
-        public int PairsId { get; set; }
+        public int Id { get; set; }
 
         public int SlotScheduleId { get; set; }
 

@@ -22,69 +22,131 @@ namespace DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DAL.Models.Department", b =>
+            modelBuilder.Entity("DAL.Models.Departments", b =>
                 {
-                    b.Property<int>("DepartmentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int>("FacultyesId")
                         .HasColumnType("int");
 
                     b.Property<string>("NameDepartment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DepartmentId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("FacultyId");
+                    b.HasIndex("FacultyesId");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FacultyesId = 1,
+                            NameDepartment = "ИП"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Disciplines", b =>
                 {
-                    b.Property<int>("DisciplineId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DisciplineId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("DisciplineName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DisciplineId");
+                    b.HasKey("Id");
 
                     b.ToTable("Disciplines");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DisciplineName = "КИС"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DisciplineName = "РПИ"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DisciplineName = "ОСиСП"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DisciplineName = "ОУИС"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DisciplineName = "ПМП"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DisciplineName = "БЖЧ"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DisciplineName = "ФизКульт"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DisciplineName = "Экономика"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DisciplineName = "ММСС"
+                        });
                 });
 
-            modelBuilder.Entity("DAL.Models.Faculty", b =>
+            modelBuilder.Entity("DAL.Models.Facultyes", b =>
                 {
-                    b.Property<int>("FacultyId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FacultyId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("NameFaculty")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FacultyId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Faculty");
+                    b.ToTable("Facultyes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NameFaculty = "ФАИС"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Groups", b =>
                 {
-                    b.Property<int>("GroupId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Course")
                         .HasColumnType("int");
@@ -99,20 +161,38 @@ namespace DAL.Migrations
                     b.Property<int>("NumberGroup")
                         .HasColumnType("int");
 
-                    b.HasKey("GroupId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Groups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Course = 3,
+                            DepartmentId = 1,
+                            NameGroup = "ИП",
+                            NumberGroup = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Course = 3,
+                            DepartmentId = 1,
+                            NameGroup = "ИП",
+                            NumberGroup = 1
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Marks", b =>
                 {
-                    b.Property<int>("MarksId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarksId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("MarksCount")
                         .HasColumnType("int");
@@ -123,7 +203,7 @@ namespace DAL.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.HasKey("MarksId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PairsId");
 
@@ -134,11 +214,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Pairs", b =>
                 {
-                    b.Property<int>("PairsId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PairsId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("SlotScheduleId")
                         .HasColumnType("int");
@@ -146,7 +226,7 @@ namespace DAL.Migrations
                     b.Property<int>("TypePair")
                         .HasColumnType("int");
 
-                    b.HasKey("PairsId");
+                    b.HasKey("Id");
 
                     b.HasIndex("SlotScheduleId");
 
@@ -155,16 +235,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Schedules", b =>
                 {
-                    b.Property<int>("ScheduleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("DisciplineId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DisciplinesDisciplineId")
+                    b.Property<int>("DisciplinesId")
                         .HasColumnType("int");
 
                     b.Property<int>("TypeSchedule")
@@ -173,9 +250,9 @@ namespace DAL.Migrations
                     b.Property<int>("WorkerId")
                         .HasColumnType("int");
 
-                    b.HasKey("ScheduleId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("DisciplinesDisciplineId");
+                    b.HasIndex("DisciplinesId");
 
                     b.HasIndex("WorkerId");
 
@@ -184,11 +261,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Slots", b =>
                 {
-                    b.Property<int>("SlotID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SlotID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("DayOfTheWeek")
                         .HasColumnType("int");
@@ -199,18 +276,18 @@ namespace DAL.Migrations
                     b.Property<TimeSpan>("Start")
                         .HasColumnType("time");
 
-                    b.HasKey("SlotID");
+                    b.HasKey("Id");
 
                     b.ToTable("Slots");
                 });
 
             modelBuilder.Entity("DAL.Models.SlotsSchedules", b =>
                 {
-                    b.Property<int>("SlotsSchedulesId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SlotsSchedulesId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("SchedulesId")
                         .HasColumnType("int");
@@ -218,7 +295,7 @@ namespace DAL.Migrations
                     b.Property<int>("SlotsId")
                         .HasColumnType("int");
 
-                    b.HasKey("SlotsSchedulesId");
+                    b.HasKey("Id");
 
                     b.HasIndex("SchedulesId");
 
@@ -229,42 +306,222 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Students", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupsGroupId")
+                    b.Property<int>("GroupsId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("StudentId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("GroupsGroupId");
+                    b.HasIndex("GroupsId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CardNumber = "8252",
+                            GroupsId = 1,
+                            UserId = "b9838106-a804-4dac-be90-d9318ee876d0"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CardNumber = "2209",
+                            GroupsId = 1,
+                            UserId = "e00dc3c0-3a8e-425c-b254-e04045560c0f"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CardNumber = "3924",
+                            GroupsId = 1,
+                            UserId = "f8063e49-a510-4124-80cd-fefefb2f8cb2"
+                        });
+                });
+
+            modelBuilder.Entity("DAL.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b9838106-a804-4dac-be90-d9318ee876d0",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b9efe851-b0cc-46eb-b633-ef868dce21c7",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            MiddleName = "Иванович",
+                            Name = "Иван",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "09b45450-a125-4f94-9253-8797d5eb6922",
+                            Surname = "Иванов",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "e00dc3c0-3a8e-425c-b254-e04045560c0f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "371efec0-79fd-441e-989e-5bc728e57152",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            MiddleName = "Егорович",
+                            Name = "Егор",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c3d7a1ba-01d0-48b1-b1ad-aa3f526071c8",
+                            Surname = "Егоров",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "f8063e49-a510-4124-80cd-fefefb2f8cb2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8a64c681-d126-4d27-bc87-69c183e355d5",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            MiddleName = "Владиславович",
+                            Name = "Влад",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ae2f35c3-a7f9-4eea-bde5-854ef66fb04f",
+                            Surname = "Владислов",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cc1124e9-2113-46f0-bfb0-cc3bc68fe8f1",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            MiddleName = "Иванович",
+                            Name = "Иван",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "105b1957-4db8-4a0c-b19a-09275493c9ea",
+                            Surname = "Иванов",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "42c8ec46-b63b-4f24-a34a-8170ad5155ce",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "47fb2d16-d5c0-4a9e-956b-c12a07d72cc8",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            MiddleName = "Егорович",
+                            Name = "Егор",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ca508942-3f57-47d7-bb7a-ba980f5ab50f",
+                            Surname = "Егоров",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "c542afbe-4eab-44da-9c8c-d7f2e35eb9e3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f0967dc9-928a-442b-9dd6-e6b448ed0157",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            MiddleName = "Владиславович",
+                            Name = "Влад",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b119cae9-0739-42f9-8dc8-7d34fc9e1f63",
+                            Surname = "Владислов",
+                            TwoFactorEnabled = false
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Workers", b =>
                 {
-                    b.Property<int>("WorkerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkerId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
@@ -273,26 +530,46 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("WorkerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Workers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DepartmentId = 1,
+                            UserId = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DepartmentId = 1,
+                            UserId = "42c8ec46-b63b-4f24-a34a-8170ad5155ce"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DepartmentId = 1,
+                            UserId = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a"
+                        });
                 });
 
             modelBuilder.Entity("GroupsSchedules", b =>
                 {
-                    b.Property<int>("GroupsGroupId")
+                    b.Property<int>("GroupsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SchedulsScheduleId")
+                    b.Property<int>("SchedulsId")
                         .HasColumnType("int");
 
-                    b.HasKey("GroupsGroupId", "SchedulsScheduleId");
+                    b.HasKey("GroupsId", "SchedulsId");
 
-                    b.HasIndex("SchedulsScheduleId");
+                    b.HasIndex("SchedulsId");
 
                     b.ToTable("GroupsSchedules");
                 });
@@ -322,6 +599,32 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5",
+                            ConcurrencyStamp = "b397304e-088d-44f1-8e25-775ec77cff34",
+                            Name = "Студент"
+                        },
+                        new
+                        {
+                            Id = "cbbdf67b-a29f-4612-8450-f360f29c1f69",
+                            ConcurrencyStamp = "9cef8473-51a5-4477-a2ad-eb6ebd8fd73f",
+                            Name = "Преподаватель"
+                        },
+                        new
+                        {
+                            Id = "a242ba66-652e-4fde-81ae-cdfc12362225",
+                            ConcurrencyStamp = "fd395926-ff24-4e3f-8627-f652c0a6af7f",
+                            Name = "Декан"
+                        },
+                        new
+                        {
+                            Id = "f6c8d671-7810-48fc-b06a-46591dc777ae",
+                            ConcurrencyStamp = "c40dfb77-2f51-44f6-902f-e0d12c80cf52",
+                            Name = "ЗамКафедры"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -347,71 +650,6 @@ namespace DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -474,6 +712,38 @@ namespace DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b9838106-a804-4dac-be90-d9318ee876d0",
+                            RoleId = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5"
+                        },
+                        new
+                        {
+                            UserId = "e00dc3c0-3a8e-425c-b254-e04045560c0f",
+                            RoleId = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5"
+                        },
+                        new
+                        {
+                            UserId = "f8063e49-a510-4124-80cd-fefefb2f8cb2",
+                            RoleId = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5"
+                        },
+                        new
+                        {
+                            UserId = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a",
+                            RoleId = "cbbdf67b-a29f-4612-8450-f360f29c1f69"
+                        },
+                        new
+                        {
+                            UserId = "42c8ec46-b63b-4f24-a34a-8170ad5155ce",
+                            RoleId = "cbbdf67b-a29f-4612-8450-f360f29c1f69"
+                        },
+                        new
+                        {
+                            UserId = "c542afbe-4eab-44da-9c8c-d7f2e35eb9e3",
+                            RoleId = "cbbdf67b-a29f-4612-8450-f360f29c1f69"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -495,11 +765,11 @@ namespace DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DAL.Models.Department", b =>
+            modelBuilder.Entity("DAL.Models.Departments", b =>
                 {
-                    b.HasOne("DAL.Models.Faculty", "Faculty")
+                    b.HasOne("DAL.Models.Facultyes", "Faculty")
                         .WithMany("DepartmentsAtTheFaculty")
-                        .HasForeignKey("FacultyId")
+                        .HasForeignKey("FacultyesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -508,7 +778,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Groups", b =>
                 {
-                    b.HasOne("DAL.Models.Department", "Department")
+                    b.HasOne("DAL.Models.Departments", "Department")
                         .WithMany("GroupsAtTheDepartment")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -551,7 +821,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.Disciplines", "Disciplines")
                         .WithMany()
-                        .HasForeignKey("DisciplinesDisciplineId")
+                        .HasForeignKey("DisciplinesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -589,11 +859,11 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.Groups", "Groups")
                         .WithMany("Students")
-                        .HasForeignKey("GroupsGroupId")
+                        .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("DAL.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -606,13 +876,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Workers", b =>
                 {
-                    b.HasOne("DAL.Models.Department", "Department")
+                    b.HasOne("DAL.Models.Departments", "Department")
                         .WithMany("WorkerAtTheDepartment")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("DAL.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -627,13 +897,13 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Models.Groups", null)
                         .WithMany()
-                        .HasForeignKey("GroupsGroupId")
+                        .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Schedules", null)
                         .WithMany()
-                        .HasForeignKey("SchedulsScheduleId")
+                        .HasForeignKey("SchedulsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -649,7 +919,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -658,7 +928,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -673,7 +943,7 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -682,21 +952,21 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DAL.Models.Department", b =>
+            modelBuilder.Entity("DAL.Models.Departments", b =>
                 {
                     b.Navigation("GroupsAtTheDepartment");
 
                     b.Navigation("WorkerAtTheDepartment");
                 });
 
-            modelBuilder.Entity("DAL.Models.Faculty", b =>
+            modelBuilder.Entity("DAL.Models.Facultyes", b =>
                 {
                     b.Navigation("DepartmentsAtTheFaculty");
                 });
