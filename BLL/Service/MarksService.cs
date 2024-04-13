@@ -7,7 +7,7 @@ using DAL.Models;
 
 namespace BLL.Service
 {
-    public class MarksSerivce : IMarksService
+    public class MarksService : IMarksService
     {
         private readonly IMarksRepository _marksRepository;
         private readonly IMapper _mapper;

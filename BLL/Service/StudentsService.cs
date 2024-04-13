@@ -10,9 +10,9 @@ namespace BLL.Service
 {
     public class StudentsService : IStudentsService
     {
-        private readonly IStudentsReporitory _studentsReporitory;
+        private readonly IStudentsRepository _studentsReporitory;
         private readonly IMapper _mapper;
-        public StudentsService(IStudentsReporitory studentsReporitory, IMapper mapper)
+        public StudentsService(IStudentsRepository studentsReporitory, IMapper mapper)
         {
             _studentsReporitory = studentsReporitory;
             _mapper = mapper;

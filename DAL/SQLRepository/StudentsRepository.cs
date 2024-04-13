@@ -5,7 +5,7 @@ using DAL.Models;
 
 namespace DAL.SQLRepository
 {
-    public class StudentsRepository : IStudentsReporitory
+    public class StudentsRepository : IStudentsRepository
     {
         private readonly ApplicationDbContext _context;
 
