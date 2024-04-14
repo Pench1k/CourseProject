@@ -17,6 +17,8 @@ namespace DAL.Models
 
         public List<Students> Students { get; set; } 
         
-        public List<Schedules> Scheduls { get; set; }
+        public List<GroupsSchedules> Scheduls { get; set; }
+
+
     }
 }

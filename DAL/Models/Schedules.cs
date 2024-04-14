@@ -11,7 +11,7 @@ namespace DAL.Models
         public int WorkerId { get; set; }
         public Workers Worker { get; set; }
 
-        public List<Groups> Groups { get; set; }
+        public List<GroupsSchedules> Groups { get; set; }
 
         public int DisciplinesId { get; set; }
         public Disciplines Disciplines { get; set; }    

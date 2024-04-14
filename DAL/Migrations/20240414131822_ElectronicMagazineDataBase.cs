@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class ElectronicMagazineDataBasec : Migration
+    public partial class ElectronicMagazineDataBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -325,11 +325,11 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     GroupsId = table.Column<int>(type: "int", nullable: false),
-                    SchedulsId = table.Column<int>(type: "int", nullable: false)
+                    SchedulesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupsSchedules", x => new { x.GroupsId, x.SchedulsId });
+                    table.PrimaryKey("PK_GroupsSchedules", x => new { x.GroupsId, x.SchedulesId });
                     table.ForeignKey(
                         name: "FK_GroupsSchedules_Groups_GroupsId",
                         column: x => x.GroupsId,
@@ -337,8 +337,8 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GroupsSchedules_Schedules_SchedulsId",
-                        column: x => x.SchedulsId,
+                        name: "FK_GroupsSchedules_Schedules_SchedulesId",
+                        column: x => x.SchedulesId,
                         principalTable: "Schedules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -422,10 +422,10 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "891e6f5b-553b-42b5-9a2f-3dc28792ffc5", "b397304e-088d-44f1-8e25-775ec77cff34", "Студент", null },
-                    { "a242ba66-652e-4fde-81ae-cdfc12362225", "fd395926-ff24-4e3f-8627-f652c0a6af7f", "Декан", null },
-                    { "cbbdf67b-a29f-4612-8450-f360f29c1f69", "9cef8473-51a5-4477-a2ad-eb6ebd8fd73f", "Преподаватель", null },
-                    { "f6c8d671-7810-48fc-b06a-46591dc777ae", "c40dfb77-2f51-44f6-902f-e0d12c80cf52", "ЗамКафедры", null }
+                    { "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30", "1c47088f-552a-47fc-a1c3-8bb12930be3e", "Студент", null },
+                    { "4f978b96-c136-48d7-a2ae-c97238ab0c8d", "192354b1-0a99-485c-9b10-44fa072140ab", "Преподаватель", null },
+                    { "b5f14003-6e13-43c0-ac8d-16ee111f40ea", "e0306b46-48c9-4e12-bcbf-4eb4387fb060", "Декан", null },
+                    { "e0621b50-4243-4206-93a4-b35d42fea37a", "5f44a1fe-cd84-442e-9f7e-6dbd41131959", "ЗамКафедры", null }
                 });
 
             migrationBuilder.InsertData(
@@ -433,12 +433,12 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "MiddleName", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "42c8ec46-b63b-4f24-a34a-8170ad5155ce", 0, "47fb2d16-d5c0-4a9e-956b-c12a07d72cc8", null, false, false, null, "Егорович", "Егор", null, null, null, null, false, "ca508942-3f57-47d7-bb7a-ba980f5ab50f", "Егоров", false, null },
-                    { "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a", 0, "cc1124e9-2113-46f0-bfb0-cc3bc68fe8f1", null, false, false, null, "Иванович", "Иван", null, null, null, null, false, "105b1957-4db8-4a0c-b19a-09275493c9ea", "Иванов", false, null },
-                    { "b9838106-a804-4dac-be90-d9318ee876d0", 0, "b9efe851-b0cc-46eb-b633-ef868dce21c7", null, false, false, null, "Иванович", "Иван", null, null, null, null, false, "09b45450-a125-4f94-9253-8797d5eb6922", "Иванов", false, null },
-                    { "c542afbe-4eab-44da-9c8c-d7f2e35eb9e3", 0, "f0967dc9-928a-442b-9dd6-e6b448ed0157", null, false, false, null, "Владиславович", "Влад", null, null, null, null, false, "b119cae9-0739-42f9-8dc8-7d34fc9e1f63", "Владислов", false, null },
-                    { "e00dc3c0-3a8e-425c-b254-e04045560c0f", 0, "371efec0-79fd-441e-989e-5bc728e57152", null, false, false, null, "Егорович", "Егор", null, null, null, null, false, "c3d7a1ba-01d0-48b1-b1ad-aa3f526071c8", "Егоров", false, null },
-                    { "f8063e49-a510-4124-80cd-fefefb2f8cb2", 0, "8a64c681-d126-4d27-bc87-69c183e355d5", null, false, false, null, "Владиславович", "Влад", null, null, null, null, false, "ae2f35c3-a7f9-4eea-bde5-854ef66fb04f", "Владислов", false, null }
+                    { "577b9340-1a02-4316-a983-42d70127751c", 0, "0254e60f-f83a-4457-a7f4-9d570888f77b", null, false, false, null, "Иванович", "Иван", null, null, null, null, false, "bd48a304-ec6e-4959-859b-a8c0cbb592a0", "Иванов", false, null },
+                    { "60d70ac4-f7ea-44c3-ba80-89fb25039b33", 0, "c1b0d9f9-efa0-4753-86c2-837a44dba163", null, false, false, null, "Егорович", "Егор", null, null, null, null, false, "e84e34ac-e801-483e-8a60-3bb929798223", "Егоров", false, null },
+                    { "8ed45042-5ce6-445b-a844-cf7a03eef945", 0, "66f703ae-5b8f-429a-8d8f-761ff79059f8", null, false, false, null, "Владиславович", "Влад", null, null, null, null, false, "5f239dcb-14fe-494e-a310-5ddcabac3649", "Владислов", false, null },
+                    { "a23b98d9-288f-424a-b307-3fc787a0005b", 0, "44b2c6af-f3aa-496b-b0e8-7a891c8f4bfe", null, false, false, null, "Владиславович", "Влад", null, null, null, null, false, "76fe4a97-4cb4-4a9c-bb28-f95e60dd7d26", "Владислов", false, null },
+                    { "d21d4f10-82b7-409b-b447-15478ed6c6f2", 0, "442b6721-a3e7-42ab-94bb-a3ba630c76d2", null, false, false, null, "Иванович", "Иван", null, null, null, null, false, "d9b367fd-74dd-4167-a96b-5c070032f230", "Иванов", false, null },
+                    { "fc9a3784-05a1-4e14-8b00-2a0692d7a8ec", 0, "e30bad53-5e1e-465a-8f41-8c907c9b2c05", null, false, false, null, "Егорович", "Егор", null, null, null, null, false, "6485ec91-f55d-41fe-9f80-b36a67719285", "Егоров", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -463,16 +463,60 @@ namespace DAL.Migrations
                 values: new object[] { 1, "ФАИС" });
 
             migrationBuilder.InsertData(
+                table: "Slots",
+                columns: new[] { "Id", "DayOfTheWeek", "End", "Start" },
+                values: new object[,]
+                {
+                    { 1, 1, new TimeSpan(0, 9, 40, 0, 0), new TimeSpan(0, 8, 20, 0, 0) },
+                    { 2, 1, new TimeSpan(0, 11, 25, 0, 0), new TimeSpan(0, 10, 0, 0, 0) },
+                    { 3, 1, new TimeSpan(0, 13, 0, 0, 0), new TimeSpan(0, 11, 35, 0, 0) },
+                    { 4, 1, new TimeSpan(0, 14, 55, 0, 0), new TimeSpan(0, 13, 30, 0, 0) },
+                    { 5, 1, new TimeSpan(0, 16, 30, 0, 0), new TimeSpan(0, 15, 5, 0, 0) },
+                    { 6, 2, new TimeSpan(0, 9, 40, 0, 0), new TimeSpan(0, 8, 20, 0, 0) },
+                    { 7, 2, new TimeSpan(0, 11, 25, 0, 0), new TimeSpan(0, 10, 0, 0, 0) },
+                    { 8, 2, new TimeSpan(0, 13, 0, 0, 0), new TimeSpan(0, 11, 35, 0, 0) },
+                    { 9, 2, new TimeSpan(0, 14, 55, 0, 0), new TimeSpan(0, 13, 30, 0, 0) },
+                    { 10, 2, new TimeSpan(0, 16, 30, 0, 0), new TimeSpan(0, 15, 5, 0, 0) },
+                    { 11, 3, new TimeSpan(0, 9, 40, 0, 0), new TimeSpan(0, 8, 20, 0, 0) },
+                    { 12, 3, new TimeSpan(0, 11, 25, 0, 0), new TimeSpan(0, 10, 0, 0, 0) },
+                    { 13, 3, new TimeSpan(0, 13, 0, 0, 0), new TimeSpan(0, 11, 35, 0, 0) },
+                    { 14, 3, new TimeSpan(0, 14, 55, 0, 0), new TimeSpan(0, 13, 30, 0, 0) },
+                    { 15, 3, new TimeSpan(0, 16, 30, 0, 0), new TimeSpan(0, 15, 5, 0, 0) },
+                    { 16, 4, new TimeSpan(0, 9, 40, 0, 0), new TimeSpan(0, 8, 20, 0, 0) },
+                    { 17, 4, new TimeSpan(0, 11, 25, 0, 0), new TimeSpan(0, 10, 0, 0, 0) },
+                    { 18, 4, new TimeSpan(0, 13, 0, 0, 0), new TimeSpan(0, 11, 35, 0, 0) },
+                    { 19, 4, new TimeSpan(0, 14, 55, 0, 0), new TimeSpan(0, 13, 30, 0, 0) },
+                    { 20, 4, new TimeSpan(0, 16, 30, 0, 0), new TimeSpan(0, 15, 5, 0, 0) },
+                    { 21, 5, new TimeSpan(0, 9, 40, 0, 0), new TimeSpan(0, 8, 20, 0, 0) },
+                    { 22, 5, new TimeSpan(0, 11, 25, 0, 0), new TimeSpan(0, 10, 0, 0, 0) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Slots",
+                columns: new[] { "Id", "DayOfTheWeek", "End", "Start" },
+                values: new object[] { 23, 5, new TimeSpan(0, 13, 0, 0, 0), new TimeSpan(0, 11, 35, 0, 0) });
+
+            migrationBuilder.InsertData(
+                table: "Slots",
+                columns: new[] { "Id", "DayOfTheWeek", "End", "Start" },
+                values: new object[] { 24, 5, new TimeSpan(0, 14, 55, 0, 0), new TimeSpan(0, 13, 30, 0, 0) });
+
+            migrationBuilder.InsertData(
+                table: "Slots",
+                columns: new[] { "Id", "DayOfTheWeek", "End", "Start" },
+                values: new object[] { 25, 5, new TimeSpan(0, 16, 30, 0, 0), new TimeSpan(0, 15, 5, 0, 0) });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "cbbdf67b-a29f-4612-8450-f360f29c1f69", "42c8ec46-b63b-4f24-a34a-8170ad5155ce" },
-                    { "cbbdf67b-a29f-4612-8450-f360f29c1f69", "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a" },
-                    { "891e6f5b-553b-42b5-9a2f-3dc28792ffc5", "b9838106-a804-4dac-be90-d9318ee876d0" },
-                    { "cbbdf67b-a29f-4612-8450-f360f29c1f69", "c542afbe-4eab-44da-9c8c-d7f2e35eb9e3" },
-                    { "891e6f5b-553b-42b5-9a2f-3dc28792ffc5", "e00dc3c0-3a8e-425c-b254-e04045560c0f" },
-                    { "891e6f5b-553b-42b5-9a2f-3dc28792ffc5", "f8063e49-a510-4124-80cd-fefefb2f8cb2" }
+                    { "4f978b96-c136-48d7-a2ae-c97238ab0c8d", "577b9340-1a02-4316-a983-42d70127751c" },
+                    { "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30", "60d70ac4-f7ea-44c3-ba80-89fb25039b33" },
+                    { "4f978b96-c136-48d7-a2ae-c97238ab0c8d", "8ed45042-5ce6-445b-a844-cf7a03eef945" },
+                    { "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30", "a23b98d9-288f-424a-b307-3fc787a0005b" },
+                    { "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30", "d21d4f10-82b7-409b-b447-15478ed6c6f2" },
+                    { "4f978b96-c136-48d7-a2ae-c97238ab0c8d", "fc9a3784-05a1-4e14-8b00-2a0692d7a8ec" }
                 });
 
             migrationBuilder.InsertData(
@@ -494,25 +538,93 @@ namespace DAL.Migrations
                 columns: new[] { "Id", "DepartmentId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a" },
-                    { 2, 1, "42c8ec46-b63b-4f24-a34a-8170ad5155ce" },
-                    { 3, 1, "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a" }
+                    { 1, 1, "577b9340-1a02-4316-a983-42d70127751c" },
+                    { 2, 1, "fc9a3784-05a1-4e14-8b00-2a0692d7a8ec" },
+                    { 3, 1, "577b9340-1a02-4316-a983-42d70127751c" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Schedules",
+                columns: new[] { "Id", "DisciplinesId", "TypeSchedule", "WorkerId" },
+                values: new object[,]
+                {
+                    { 1, 1, 0, 1 },
+                    { 2, 2, 1, 2 },
+                    { 3, 3, 1, 1 },
+                    { 4, 1, 1, 1 },
+                    { 5, 4, 0, 1 },
+                    { 6, 4, 1, 1 },
+                    { 7, 5, 1, 1 },
+                    { 8, 9, 0, 1 },
+                    { 9, 7, 1, 1 },
+                    { 10, 6, 1, 1 },
+                    { 11, 3, 0, 1 },
+                    { 12, 5, 0, 1 },
+                    { 13, 8, 1, 1 },
+                    { 14, 9, 1, 1 },
+                    { 15, 2, 0, 1 },
+                    { 16, 8, 0, 1 },
+                    { 17, 6, 0, 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "CardNumber", "GroupsId", "UserId" },
-                values: new object[] { 1, "8252", 1, "b9838106-a804-4dac-be90-d9318ee876d0" });
+                values: new object[,]
+                {
+                    { 1, "8252", 1, "d21d4f10-82b7-409b-b447-15478ed6c6f2" },
+                    { 2, "2209", 1, "60d70ac4-f7ea-44c3-ba80-89fb25039b33" },
+                    { 3, "3924", 1, "a23b98d9-288f-424a-b307-3fc787a0005b" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "CardNumber", "GroupsId", "UserId" },
-                values: new object[] { 2, "2209", 1, "e00dc3c0-3a8e-425c-b254-e04045560c0f" });
+                table: "GroupsSchedules",
+                columns: new[] { "GroupsId", "SchedulesId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 1, 3 },
+                    { 1, 4 },
+                    { 1, 5 },
+                    { 1, 6 },
+                    { 1, 7 },
+                    { 1, 8 },
+                    { 1, 9 },
+                    { 1, 10 },
+                    { 1, 11 },
+                    { 1, 12 },
+                    { 1, 13 },
+                    { 1, 14 },
+                    { 1, 15 },
+                    { 1, 16 },
+                    { 1, 17 }
+                });
 
             migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "CardNumber", "GroupsId", "UserId" },
-                values: new object[] { 3, "3924", 1, "f8063e49-a510-4124-80cd-fefefb2f8cb2" });
+                table: "SlotsSchedules",
+                columns: new[] { "Id", "SchedulesId", "SlotsId" },
+                values: new object[,]
+                {
+                    { 1, 1, 2 },
+                    { 2, 2, 3 },
+                    { 3, 3, 4 },
+                    { 4, 4, 5 },
+                    { 5, 5, 6 },
+                    { 6, 6, 7 },
+                    { 7, 8, 8 },
+                    { 8, 9, 9 },
+                    { 9, 10, 12 },
+                    { 10, 11, 13 },
+                    { 11, 12, 14 },
+                    { 12, 13, 16 },
+                    { 13, 14, 17 },
+                    { 14, 15, 18 },
+                    { 15, 9, 19 },
+                    { 16, 7, 20 },
+                    { 17, 16, 21 },
+                    { 18, 17, 22 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -564,9 +676,9 @@ namespace DAL.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupsSchedules_SchedulsId",
+                name: "IX_GroupsSchedules_SchedulesId",
                 table: "GroupsSchedules",
-                column: "SchedulsId");
+                column: "SchedulesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Marks_PairsId",

@@ -186,6 +186,108 @@ namespace DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DAL.Models.GroupsSchedules", b =>
+                {
+                    b.Property<int>("GroupsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SchedulesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GroupsId", "SchedulesId");
+
+                    b.HasIndex("SchedulesId");
+
+                    b.ToTable("GroupsSchedules");
+
+                    b.HasData(
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 1
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 2
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 3
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 4
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 5
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 6
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 8
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 9
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 10
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 11
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 12
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 13
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 14
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 15
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 7
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 16
+                        },
+                        new
+                        {
+                            GroupsId = 1,
+                            SchedulesId = 17
+                        });
+                });
+
             modelBuilder.Entity("DAL.Models.Marks", b =>
                 {
                     b.Property<int>("Id")
@@ -257,6 +359,127 @@ namespace DAL.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("Schedules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DisciplinesId = 1,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DisciplinesId = 2,
+                            TypeSchedule = 1,
+                            WorkerId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DisciplinesId = 3,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DisciplinesId = 1,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DisciplinesId = 4,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DisciplinesId = 4,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DisciplinesId = 5,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DisciplinesId = 9,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DisciplinesId = 7,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DisciplinesId = 6,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DisciplinesId = 3,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DisciplinesId = 5,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DisciplinesId = 8,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DisciplinesId = 9,
+                            TypeSchedule = 1,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DisciplinesId = 2,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DisciplinesId = 8,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DisciplinesId = 6,
+                            TypeSchedule = 0,
+                            WorkerId = 1
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Slots", b =>
@@ -279,6 +502,183 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Slots");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DayOfTheWeek = 1,
+                            End = new TimeSpan(0, 9, 40, 0, 0),
+                            Start = new TimeSpan(0, 8, 20, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DayOfTheWeek = 1,
+                            End = new TimeSpan(0, 11, 25, 0, 0),
+                            Start = new TimeSpan(0, 10, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DayOfTheWeek = 1,
+                            End = new TimeSpan(0, 13, 0, 0, 0),
+                            Start = new TimeSpan(0, 11, 35, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DayOfTheWeek = 1,
+                            End = new TimeSpan(0, 14, 55, 0, 0),
+                            Start = new TimeSpan(0, 13, 30, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DayOfTheWeek = 1,
+                            End = new TimeSpan(0, 16, 30, 0, 0),
+                            Start = new TimeSpan(0, 15, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DayOfTheWeek = 2,
+                            End = new TimeSpan(0, 9, 40, 0, 0),
+                            Start = new TimeSpan(0, 8, 20, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DayOfTheWeek = 2,
+                            End = new TimeSpan(0, 11, 25, 0, 0),
+                            Start = new TimeSpan(0, 10, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DayOfTheWeek = 2,
+                            End = new TimeSpan(0, 13, 0, 0, 0),
+                            Start = new TimeSpan(0, 11, 35, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DayOfTheWeek = 2,
+                            End = new TimeSpan(0, 14, 55, 0, 0),
+                            Start = new TimeSpan(0, 13, 30, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DayOfTheWeek = 2,
+                            End = new TimeSpan(0, 16, 30, 0, 0),
+                            Start = new TimeSpan(0, 15, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DayOfTheWeek = 3,
+                            End = new TimeSpan(0, 9, 40, 0, 0),
+                            Start = new TimeSpan(0, 8, 20, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DayOfTheWeek = 3,
+                            End = new TimeSpan(0, 11, 25, 0, 0),
+                            Start = new TimeSpan(0, 10, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DayOfTheWeek = 3,
+                            End = new TimeSpan(0, 13, 0, 0, 0),
+                            Start = new TimeSpan(0, 11, 35, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DayOfTheWeek = 3,
+                            End = new TimeSpan(0, 14, 55, 0, 0),
+                            Start = new TimeSpan(0, 13, 30, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DayOfTheWeek = 3,
+                            End = new TimeSpan(0, 16, 30, 0, 0),
+                            Start = new TimeSpan(0, 15, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DayOfTheWeek = 4,
+                            End = new TimeSpan(0, 9, 40, 0, 0),
+                            Start = new TimeSpan(0, 8, 20, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DayOfTheWeek = 4,
+                            End = new TimeSpan(0, 11, 25, 0, 0),
+                            Start = new TimeSpan(0, 10, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DayOfTheWeek = 4,
+                            End = new TimeSpan(0, 13, 0, 0, 0),
+                            Start = new TimeSpan(0, 11, 35, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            DayOfTheWeek = 4,
+                            End = new TimeSpan(0, 14, 55, 0, 0),
+                            Start = new TimeSpan(0, 13, 30, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            DayOfTheWeek = 4,
+                            End = new TimeSpan(0, 16, 30, 0, 0),
+                            Start = new TimeSpan(0, 15, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            DayOfTheWeek = 5,
+                            End = new TimeSpan(0, 9, 40, 0, 0),
+                            Start = new TimeSpan(0, 8, 20, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            DayOfTheWeek = 5,
+                            End = new TimeSpan(0, 11, 25, 0, 0),
+                            Start = new TimeSpan(0, 10, 0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            DayOfTheWeek = 5,
+                            End = new TimeSpan(0, 13, 0, 0, 0),
+                            Start = new TimeSpan(0, 11, 35, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            DayOfTheWeek = 5,
+                            End = new TimeSpan(0, 14, 55, 0, 0),
+                            Start = new TimeSpan(0, 13, 30, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            DayOfTheWeek = 5,
+                            End = new TimeSpan(0, 16, 30, 0, 0),
+                            Start = new TimeSpan(0, 15, 5, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.SlotsSchedules", b =>
@@ -302,6 +702,116 @@ namespace DAL.Migrations
                     b.HasIndex("SlotsId");
 
                     b.ToTable("SlotsSchedules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            SchedulesId = 1,
+                            SlotsId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            SchedulesId = 2,
+                            SlotsId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            SchedulesId = 3,
+                            SlotsId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            SchedulesId = 4,
+                            SlotsId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            SchedulesId = 5,
+                            SlotsId = 6
+                        },
+                        new
+                        {
+                            Id = 6,
+                            SchedulesId = 6,
+                            SlotsId = 7
+                        },
+                        new
+                        {
+                            Id = 7,
+                            SchedulesId = 8,
+                            SlotsId = 8
+                        },
+                        new
+                        {
+                            Id = 8,
+                            SchedulesId = 9,
+                            SlotsId = 9
+                        },
+                        new
+                        {
+                            Id = 9,
+                            SchedulesId = 10,
+                            SlotsId = 12
+                        },
+                        new
+                        {
+                            Id = 10,
+                            SchedulesId = 11,
+                            SlotsId = 13
+                        },
+                        new
+                        {
+                            Id = 11,
+                            SchedulesId = 12,
+                            SlotsId = 14
+                        },
+                        new
+                        {
+                            Id = 12,
+                            SchedulesId = 13,
+                            SlotsId = 16
+                        },
+                        new
+                        {
+                            Id = 13,
+                            SchedulesId = 14,
+                            SlotsId = 17
+                        },
+                        new
+                        {
+                            Id = 14,
+                            SchedulesId = 15,
+                            SlotsId = 18
+                        },
+                        new
+                        {
+                            Id = 15,
+                            SchedulesId = 9,
+                            SlotsId = 19
+                        },
+                        new
+                        {
+                            Id = 16,
+                            SchedulesId = 7,
+                            SlotsId = 20
+                        },
+                        new
+                        {
+                            Id = 17,
+                            SchedulesId = 16,
+                            SlotsId = 21
+                        },
+                        new
+                        {
+                            Id = 18,
+                            SchedulesId = 17,
+                            SlotsId = 22
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Students", b =>
@@ -337,21 +847,21 @@ namespace DAL.Migrations
                             Id = 1,
                             CardNumber = "8252",
                             GroupsId = 1,
-                            UserId = "b9838106-a804-4dac-be90-d9318ee876d0"
+                            UserId = "d21d4f10-82b7-409b-b447-15478ed6c6f2"
                         },
                         new
                         {
                             Id = 2,
                             CardNumber = "2209",
                             GroupsId = 1,
-                            UserId = "e00dc3c0-3a8e-425c-b254-e04045560c0f"
+                            UserId = "60d70ac4-f7ea-44c3-ba80-89fb25039b33"
                         },
                         new
                         {
                             Id = 3,
                             CardNumber = "3924",
                             GroupsId = 1,
-                            UserId = "f8063e49-a510-4124-80cd-fefefb2f8cb2"
+                            UserId = "a23b98d9-288f-424a-b307-3fc787a0005b"
                         });
                 });
 
@@ -431,85 +941,85 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b9838106-a804-4dac-be90-d9318ee876d0",
+                            Id = "d21d4f10-82b7-409b-b447-15478ed6c6f2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b9efe851-b0cc-46eb-b633-ef868dce21c7",
+                            ConcurrencyStamp = "442b6721-a3e7-42ab-94bb-a3ba630c76d2",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MiddleName = "Иванович",
                             Name = "Иван",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09b45450-a125-4f94-9253-8797d5eb6922",
+                            SecurityStamp = "d9b367fd-74dd-4167-a96b-5c070032f230",
                             Surname = "Иванов",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "e00dc3c0-3a8e-425c-b254-e04045560c0f",
+                            Id = "60d70ac4-f7ea-44c3-ba80-89fb25039b33",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "371efec0-79fd-441e-989e-5bc728e57152",
+                            ConcurrencyStamp = "c1b0d9f9-efa0-4753-86c2-837a44dba163",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MiddleName = "Егорович",
                             Name = "Егор",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3d7a1ba-01d0-48b1-b1ad-aa3f526071c8",
+                            SecurityStamp = "e84e34ac-e801-483e-8a60-3bb929798223",
                             Surname = "Егоров",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "f8063e49-a510-4124-80cd-fefefb2f8cb2",
+                            Id = "a23b98d9-288f-424a-b307-3fc787a0005b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8a64c681-d126-4d27-bc87-69c183e355d5",
+                            ConcurrencyStamp = "44b2c6af-f3aa-496b-b0e8-7a891c8f4bfe",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MiddleName = "Владиславович",
                             Name = "Влад",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ae2f35c3-a7f9-4eea-bde5-854ef66fb04f",
+                            SecurityStamp = "76fe4a97-4cb4-4a9c-bb28-f95e60dd7d26",
                             Surname = "Владислов",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a",
+                            Id = "577b9340-1a02-4316-a983-42d70127751c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc1124e9-2113-46f0-bfb0-cc3bc68fe8f1",
+                            ConcurrencyStamp = "0254e60f-f83a-4457-a7f4-9d570888f77b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MiddleName = "Иванович",
                             Name = "Иван",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "105b1957-4db8-4a0c-b19a-09275493c9ea",
+                            SecurityStamp = "bd48a304-ec6e-4959-859b-a8c0cbb592a0",
                             Surname = "Иванов",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "42c8ec46-b63b-4f24-a34a-8170ad5155ce",
+                            Id = "fc9a3784-05a1-4e14-8b00-2a0692d7a8ec",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "47fb2d16-d5c0-4a9e-956b-c12a07d72cc8",
+                            ConcurrencyStamp = "e30bad53-5e1e-465a-8f41-8c907c9b2c05",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MiddleName = "Егорович",
                             Name = "Егор",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca508942-3f57-47d7-bb7a-ba980f5ab50f",
+                            SecurityStamp = "6485ec91-f55d-41fe-9f80-b36a67719285",
                             Surname = "Егоров",
                             TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "c542afbe-4eab-44da-9c8c-d7f2e35eb9e3",
+                            Id = "8ed45042-5ce6-445b-a844-cf7a03eef945",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0967dc9-928a-442b-9dd6-e6b448ed0157",
+                            ConcurrencyStamp = "66f703ae-5b8f-429a-8d8f-761ff79059f8",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MiddleName = "Владиславович",
                             Name = "Влад",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b119cae9-0739-42f9-8dc8-7d34fc9e1f63",
+                            SecurityStamp = "5f239dcb-14fe-494e-a310-5ddcabac3649",
                             Surname = "Владислов",
                             TwoFactorEnabled = false
                         });
@@ -543,35 +1053,20 @@ namespace DAL.Migrations
                         {
                             Id = 1,
                             DepartmentId = 1,
-                            UserId = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a"
+                            UserId = "577b9340-1a02-4316-a983-42d70127751c"
                         },
                         new
                         {
                             Id = 2,
                             DepartmentId = 1,
-                            UserId = "42c8ec46-b63b-4f24-a34a-8170ad5155ce"
+                            UserId = "fc9a3784-05a1-4e14-8b00-2a0692d7a8ec"
                         },
                         new
                         {
                             Id = 3,
                             DepartmentId = 1,
-                            UserId = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a"
+                            UserId = "577b9340-1a02-4316-a983-42d70127751c"
                         });
-                });
-
-            modelBuilder.Entity("GroupsSchedules", b =>
-                {
-                    b.Property<int>("GroupsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SchedulsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GroupsId", "SchedulsId");
-
-                    b.HasIndex("SchedulsId");
-
-                    b.ToTable("GroupsSchedules");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -603,26 +1098,26 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5",
-                            ConcurrencyStamp = "b397304e-088d-44f1-8e25-775ec77cff34",
+                            Id = "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30",
+                            ConcurrencyStamp = "1c47088f-552a-47fc-a1c3-8bb12930be3e",
                             Name = "Студент"
                         },
                         new
                         {
-                            Id = "cbbdf67b-a29f-4612-8450-f360f29c1f69",
-                            ConcurrencyStamp = "9cef8473-51a5-4477-a2ad-eb6ebd8fd73f",
+                            Id = "4f978b96-c136-48d7-a2ae-c97238ab0c8d",
+                            ConcurrencyStamp = "192354b1-0a99-485c-9b10-44fa072140ab",
                             Name = "Преподаватель"
                         },
                         new
                         {
-                            Id = "a242ba66-652e-4fde-81ae-cdfc12362225",
-                            ConcurrencyStamp = "fd395926-ff24-4e3f-8627-f652c0a6af7f",
+                            Id = "b5f14003-6e13-43c0-ac8d-16ee111f40ea",
+                            ConcurrencyStamp = "e0306b46-48c9-4e12-bcbf-4eb4387fb060",
                             Name = "Декан"
                         },
                         new
                         {
-                            Id = "f6c8d671-7810-48fc-b06a-46591dc777ae",
-                            ConcurrencyStamp = "c40dfb77-2f51-44f6-902f-e0d12c80cf52",
+                            Id = "e0621b50-4243-4206-93a4-b35d42fea37a",
+                            ConcurrencyStamp = "5f44a1fe-cd84-442e-9f7e-6dbd41131959",
                             Name = "ЗамКафедры"
                         });
                 });
@@ -716,33 +1211,33 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b9838106-a804-4dac-be90-d9318ee876d0",
-                            RoleId = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5"
+                            UserId = "d21d4f10-82b7-409b-b447-15478ed6c6f2",
+                            RoleId = "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30"
                         },
                         new
                         {
-                            UserId = "e00dc3c0-3a8e-425c-b254-e04045560c0f",
-                            RoleId = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5"
+                            UserId = "60d70ac4-f7ea-44c3-ba80-89fb25039b33",
+                            RoleId = "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30"
                         },
                         new
                         {
-                            UserId = "f8063e49-a510-4124-80cd-fefefb2f8cb2",
-                            RoleId = "891e6f5b-553b-42b5-9a2f-3dc28792ffc5"
+                            UserId = "a23b98d9-288f-424a-b307-3fc787a0005b",
+                            RoleId = "3aa603b2-ce9f-4c84-9dfe-cd6b56a74c30"
                         },
                         new
                         {
-                            UserId = "a7ba8dfe-788e-4bb5-b47f-bd0f075a7e6a",
-                            RoleId = "cbbdf67b-a29f-4612-8450-f360f29c1f69"
+                            UserId = "577b9340-1a02-4316-a983-42d70127751c",
+                            RoleId = "4f978b96-c136-48d7-a2ae-c97238ab0c8d"
                         },
                         new
                         {
-                            UserId = "42c8ec46-b63b-4f24-a34a-8170ad5155ce",
-                            RoleId = "cbbdf67b-a29f-4612-8450-f360f29c1f69"
+                            UserId = "fc9a3784-05a1-4e14-8b00-2a0692d7a8ec",
+                            RoleId = "4f978b96-c136-48d7-a2ae-c97238ab0c8d"
                         },
                         new
                         {
-                            UserId = "c542afbe-4eab-44da-9c8c-d7f2e35eb9e3",
-                            RoleId = "cbbdf67b-a29f-4612-8450-f360f29c1f69"
+                            UserId = "8ed45042-5ce6-445b-a844-cf7a03eef945",
+                            RoleId = "4f978b96-c136-48d7-a2ae-c97238ab0c8d"
                         });
                 });
 
@@ -785,6 +1280,25 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("DAL.Models.GroupsSchedules", b =>
+                {
+                    b.HasOne("DAL.Models.Groups", "Groups")
+                        .WithMany("Scheduls")
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Schedules", "Schedules")
+                        .WithMany("Groups")
+                        .HasForeignKey("SchedulesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Groups");
+
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("DAL.Models.Marks", b =>
@@ -893,21 +1407,6 @@ namespace DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GroupsSchedules", b =>
-                {
-                    b.HasOne("DAL.Models.Groups", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.Schedules", null)
-                        .WithMany()
-                        .HasForeignKey("SchedulsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -973,11 +1472,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Groups", b =>
                 {
+                    b.Navigation("Scheduls");
+
                     b.Navigation("Students");
                 });
 
             modelBuilder.Entity("DAL.Models.Schedules", b =>
                 {
+                    b.Navigation("Groups");
+
                     b.Navigation("Slots");
                 });
 
