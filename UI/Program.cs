@@ -16,6 +16,7 @@ namespace UI
             builder.Services.AddDbContext<ApplicationDbContext>(opt =>
             opt.UseSqlServer(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase")));
 
+            builder.Services.ConfigureUIService(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase"));
 
             var app = builder.Build();
 

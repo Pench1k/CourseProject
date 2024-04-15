@@ -9,11 +9,11 @@ namespace DAL.DbContext
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
-        //    : base(options) 
-        //{
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
 
-        //}
+        }
         public ApplicationDbContext()
         {
 
@@ -33,10 +33,10 @@ namespace DAL.DbContext
         public DbSet<Marks> Marks { get; set; }       
         public DbSet<GroupsSchedules> GroupsSchedules { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Initial Catalog=ElectronicMagazineDataBasec;Database=ElectronicMagazineDataBasec;Trusted_Connection=True;");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Initial Catalog=ElectronicMagazineDataBasec;Database=ElectronicMagazineDataBasec;Trusted_Connection=True;");
+        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
