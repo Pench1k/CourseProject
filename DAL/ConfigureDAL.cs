@@ -1,11 +1,9 @@
-﻿
-
-using DAL.DbContext;
+﻿using DAL.DbContext;
 using DAL.Interfaces;
-using DAL.Models;
 using DAL.SQLRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace DAL
 {
@@ -15,6 +13,7 @@ namespace DAL
         {
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connString));
 
+            
 
             services.AddScoped<IDepartmentRepository, DepartmentSQLReporistory>();
             services.AddScoped<IDisciplinesReporistory, DisciplinesSQLRepository>();
@@ -27,6 +26,7 @@ namespace DAL
             services.AddScoped<ISlotsSchedulesRepository, SlotsSchedulesSQLRepository>();
             services.AddScoped<IStudentsRepository, StudentsRepository>();
             services.AddScoped<IWorkersRepository, WorkersSQLRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();       
         }
     }
 }

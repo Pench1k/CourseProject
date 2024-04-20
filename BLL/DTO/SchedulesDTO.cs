@@ -13,8 +13,8 @@ namespace BLL.DTO
 
         public List<Groups> Groups { get; set; }
 
-        public int DisciplineId { get; set; }
-        public Disciplines Disciplines { get; set; }
+        public int DisciplinesId { get; set; }
+        public DisciplinesDTO Disciplines { get; set; }
 
         public TypeSchedule TypeSchedule { get; set; }
 

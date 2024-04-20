@@ -8,8 +8,8 @@ namespace DAL.Models
         [Key]
         public int Id { get; set; }
 
-        public int WorkerId { get; set; }
-        public Workers Worker { get; set; }
+        public int? WorkerId { get; set; }
+        public Workers? Worker { get; set; }
 
         public List<GroupsSchedules> Groups { get; set; }
 

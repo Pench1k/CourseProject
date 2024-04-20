@@ -25,6 +25,7 @@ namespace BLL
             services.AddScoped<ISlotsService, SlotsService>();
             services.AddScoped<IStudentsService, StudentsService>();
             services.AddScoped<IWorkersService, WorkersService>();
+            services.AddScoped<IUserService, UserService>();
         
         }
     }

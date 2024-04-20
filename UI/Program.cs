@@ -1,6 +1,5 @@
 using DAL.DbContext;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 
 namespace UI
 {
@@ -13,10 +12,11 @@ namespace UI
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-            opt.UseSqlServer(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase")));
+            //builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+            //opt.UseSqlServer(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase")));
 
             builder.Services.ConfigureUIService(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase"));
+         
 
             var app = builder.Build();
 
@@ -38,7 +38,7 @@ namespace UI
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Login}/{id?}");
 
             app.Run();
         }

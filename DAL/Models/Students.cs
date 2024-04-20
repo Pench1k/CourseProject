@@ -12,7 +12,7 @@ namespace DAL.Models
         public string UserId { get; set; } 
         public User User { get; set; }
 
-        public string CardNumber { get; set; }
+        public string? CardNumber { get; set; }
 
         [ForeignKey("GroupsId")]
         public int GroupsId { get; set; }    

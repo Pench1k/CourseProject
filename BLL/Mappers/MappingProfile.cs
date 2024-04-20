@@ -19,6 +19,7 @@ namespace BLL.Mappers
             CreateMap<SlotsSchedules, SlotsSchedulesDTO>().ReverseMap();
             CreateMap<Students, StudentsDTO>().ReverseMap();
             CreateMap<Workers, WorkersDTO>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }
