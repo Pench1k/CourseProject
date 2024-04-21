@@ -1,4 +1,6 @@
+using BLL.Interfaces;
 using DAL.DbContext;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace UI
@@ -10,13 +12,15 @@ namespace UI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+
 
             //builder.Services.AddDbContext<ApplicationDbContext>(opt =>
             //opt.UseSqlServer(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase")));
 
+            builder.Services.AddControllersWithViews();
             builder.Services.ConfigureUIService(builder.Configuration.GetConnectionString("ElectronicMagazineDataBase"));
-         
+            
+
 
             var app = builder.Build();
 
@@ -31,15 +35,16 @@ namespace UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Login}/{id?}");
-
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            
             app.Run();
         }
     }

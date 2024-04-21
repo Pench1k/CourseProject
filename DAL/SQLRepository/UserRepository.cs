@@ -58,5 +58,18 @@ namespace DAL.SQLRepository
                 return null;
         }
 
+        public async Task<User> Logout()
+        {
+            try
+            {
+                await _signInManager.SignOutAsync();
+            }
+            catch
+            {
+
+            }
+            return null;
+        }
+
     }
 }

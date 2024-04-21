@@ -21,6 +21,7 @@ namespace UI.Controllers
         {
             var user = await _userService.LoginUser(userName, password);
             if (user != null) {
+                
                 return Ok("Login successful");
             }
             else
@@ -28,6 +29,18 @@ namespace UI.Controllers
                 return BadRequest("Invalid login attempt");
             }
         }
-        
+
+        [Authorize]
+        [HttpGet("/User/Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await _userService.LogoutUser();
+            }
+            catch { }
+            return RedirectToAction("Login", "Home");
+        }
+
     }
 }

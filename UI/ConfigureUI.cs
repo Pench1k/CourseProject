@@ -11,6 +11,23 @@ namespace UI
         public static void ConfigureUIService(this IServiceCollection services, string connString)
         {
             services.ConfigureBLLServices(connString);
+            
+            
+
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddScoped<SignInManager<User>>();
+
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("StudentPolicy", policy => policy.RequireRole("Студент"));
+                options.AddPolicy("TeacherPolicy", policy => policy.RequireRole("Преподаватель"));
+                options.AddPolicy("DekanPolicy", policy => policy.RequireRole("Секретарь"));
+                options.AddPolicy("DeputyPolicy", policy => policy.RequireRole("Заместитель кафедры"));
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -23,19 +40,10 @@ namespace UI
                 options.ReturnUrlParameter = string.Empty;
             });
 
-            services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
-
-            services.AddScoped<SignInManager<User>>();
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("StudentPolicy", policy => policy.RequireRole("Студент"));
-                options.AddPolicy("TeacherPolicy", policy => policy.RequireRole("Преподаватель"));
-                options.AddPolicy("DekanPolicy", policy => policy.RequireRole("Секретарь"));
-                options.AddPolicy("DeputyPolicy", policy => policy.RequireRole("Заместитель кафедры"));
-            });
+            
+        }
+    }
+}
 
             //var serviceProvider = services.BuildServiceProvider();
             //var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -96,6 +104,3 @@ namespace UI
             //        }
             //    }
             //}
-        }
-    }
-}

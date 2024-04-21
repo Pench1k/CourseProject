@@ -41,5 +41,11 @@ namespace BLL.Service
         {
             return _mapper.Map<UserDTO>(await _userRepository.LoginUser(userName, password));
         }
+
+        public async Task LogoutUser()
+        {
+           
+            await _userRepository.Logout();
+        }
     }
 }

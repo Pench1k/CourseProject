@@ -1,4 +1,6 @@
 ﻿using BLL.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using UI.Models;
@@ -15,6 +17,7 @@ namespace UI.Controllers
             _schedulesService = schedulesService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View(_schedulesService.SchedulesWithDisciplineGetAll());
@@ -25,6 +28,7 @@ namespace UI.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();

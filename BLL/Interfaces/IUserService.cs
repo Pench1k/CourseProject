@@ -10,5 +10,6 @@ namespace BLL.Interfaces
         Task<UserDTO> GetUserByEmail(string email);
         Task<IEnumerable<UserDTO>> GetAllUsers();
         Task<UserDTO> LoginUser(string userName, string password);
+        Task LogoutUser();
     }
 }

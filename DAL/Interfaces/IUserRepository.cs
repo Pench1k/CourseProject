@@ -9,5 +9,6 @@ namespace DAL.Interfaces
         Task<IEnumerable<User>> GetAll();
         Task<User> FindByEmailAsync(string email);
         Task<User> LoginUser(string userName, string password);
+        Task<User> Logout();
     }
 }
