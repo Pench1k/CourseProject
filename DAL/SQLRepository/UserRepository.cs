@@ -70,6 +70,18 @@ namespace DAL.SQLRepository
             }
             return null;
         }
+        public async Task<User> GetUserInfo(string id)
+        {        
+           var user =  await _userManager.FindByIdAsync(id);          
+           return user;
+        }
+
+        public async Task<IList<string>> GetUserRole(User user)
+        {
+            var role = await _userManager.GetRolesAsync(user);
+            return role;
+
+        }
 
     }
 }

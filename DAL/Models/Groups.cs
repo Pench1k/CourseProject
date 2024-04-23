@@ -18,5 +18,10 @@ namespace DAL.Models
         public List<Students> Students { get; set; } 
         
         public List<GroupsSchedules> Scheduls { get; set; }
+
+        public override string ToString()
+        {
+            return NameGroup + " - " + Course + NumberGroup;
+        }
     }
 }

@@ -30,6 +30,11 @@ namespace DAL.SQLRepository
                 throw new Exception("Такой записи не существует");
         }
 
+        public Groups Find(Func<Groups, bool> predicate)
+        {
+            return _context.Groups.FirstOrDefault(predicate);
+        }
+
         public Groups? Get(int id) => _context.Groups.Find(id);
        
 

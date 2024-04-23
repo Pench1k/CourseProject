@@ -22,12 +22,20 @@ namespace UI.Controllers
             var user = await _userService.LoginUser(userName, password);
             if (user != null) {
                 
-                return Ok("Login successful");
+                return Ok();
             }
             else
             {
-                return BadRequest("Invalid login attempt");
+                return BadRequest("Не правильный логин или пароль");
             }
+        }
+
+        [Authorize]
+        [HttpGet("/User/Profile/{id}")]        
+        public async Task<IActionResult> Profile(string id)
+        {
+            var userDTO = await _userService.GetUserInfo(id);
+            return View(userDTO);
         }
 
         [Authorize]

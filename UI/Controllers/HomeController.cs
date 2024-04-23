@@ -11,6 +11,7 @@ namespace UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ISchedulesService _schedulesService;
+
         public HomeController(ILogger<HomeController> logger, ISchedulesService schedulesService)
         {
             _logger = logger;
@@ -28,10 +29,20 @@ namespace UI.Controllers
             return View();
         }
 
-        [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Privacy", "Home");
+            else
+                return View();
+        }
+
+ 
+        [AllowAnonymous]
+        [HttpGet("/Account/Login")]
+        public IActionResult AccessDeniedLogin()
+        {
+            return RedirectToAction("Login", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

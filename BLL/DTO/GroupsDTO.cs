@@ -16,5 +16,10 @@ namespace BLL.DTO
         public List<Students> Students { get; set; }
 
         public List<Schedules> Scheduls { get; set; }
+
+        public override string ToString()
+        {
+            return NameGroup + " - " + Course.ToString() + NumberGroup;
+        }
     }
 }

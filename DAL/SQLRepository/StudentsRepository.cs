@@ -29,12 +29,17 @@ namespace DAL.SQLRepository
             }
         }
 
+        public Students Find(Func<Students, bool> predicate)
+        {
+            return _context.Students.FirstOrDefault(predicate);
+        }
+
         public Students Get(int id) => _context.Students.Find(id);
        
 
         public List<Students> GetAll() => _context.Students.ToList();
-        
 
+  
         public void Update(Students entity)
         {
             _context.Students.Update(entity);

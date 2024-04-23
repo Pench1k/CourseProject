@@ -10,5 +10,7 @@ namespace DAL.Interfaces
         Task<User> FindByEmailAsync(string email);
         Task<User> LoginUser(string userName, string password);
         Task<User> Logout();
+        Task<User> GetUserInfo(string id);
+        Task<IList<string>> GetUserRole(User user);
     }
 }

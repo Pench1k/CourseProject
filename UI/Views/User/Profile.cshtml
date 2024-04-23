@@ -1,0 +1,31 @@
+﻿@using BLL.ViewModel
+@model UserView
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+
+<div class="container col-8">
+    <div class="card mt-5 bg-primary text-light shadow ">
+        <div class="card-body">
+            <h3 class="card-title">Личный кабинет</h3>
+            <hr />
+            <p><strong>Фамилия:</strong> @Model.User.Surname</p>
+            <p><strong>Имя:</strong> @Model.User.Name</p>
+            <p><strong>Отчество:</strong> @Model.User.MiddleName</p>
+            <p><strong>Роль:</strong> @Model.Role[0].ToString()</p>
+
+            @if (User.Identity.Name == Model.User.UserName && User.IsInRole("Студент"))
+            {
+                <p><strong>Группа:</strong> @Model.Groups.ToString()</p>
+                <p><strong>Кафедра:</strong> @Model.Departments.NameDepartment</p>
+                <p><strong>Факультет:</strong> @Model.Facultyes.NameFaculty</p>
+            }
+            else if (User.Identity.Name == Model.User.UserName && !User.IsInRole("Студент"))
+            {
+                <p><strong>Кафедра:</strong> @Model.Departments.NameDepartment</p>
+                <p><strong>Факультет:</strong> @Model.Facultyes.NameFaculty</p>
+            }
+        </div>
+    </div>
+</div>

@@ -30,6 +30,11 @@ namespace DAL.SQLRepository
                 throw new Exception("Такой записи не существует");
         }
 
+        public Workers Find(Func<Workers, bool> predicate)
+        {
+            return _context.Workers.FirstOrDefault(predicate);
+        }
+
         public Workers Get(int id) => _context.Workers.Find(id);
         
 
