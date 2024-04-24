@@ -16,17 +16,18 @@ namespace DAL
             
 
             services.AddScoped<IDepartmentRepository, DepartmentSQLReporistory>();
-            services.AddScoped<IDisciplinesReporistory, DisciplinesSQLRepository>();
+            services.AddScoped<IDisciplinesRepository, DisciplinesSQLRepository>();
             services.AddScoped<IFacultyesRepository, FacultyesSQLRepository>();
-            services.AddScoped<IGroupsReporitory, GroupsSQLRepository>();
+            services.AddScoped<IGroupsRepository, GroupsSQLRepository>();
             services.AddScoped<IMarksRepository, MarksSQLRepository>();
             services.AddScoped<IPairsRepository, PairsSQLRepository>();
-            services.AddScoped<ISchedulesReporitory, SchedulesSQLRepository>();
+            services.AddScoped<ISchedulesRepository, SchedulesSQLRepository>();
             services.AddScoped<ISlotsRepository, SlotsSQLRepository>();
             services.AddScoped<ISlotsSchedulesRepository, SlotsSchedulesSQLRepository>();
             services.AddScoped<IStudentsRepository, StudentsRepository>();
             services.AddScoped<IWorkersRepository, WorkersSQLRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();       
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGroupsSchedulesRepository, GroupsSchedulesSQLRepository>();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 
 namespace DAL.SQLRepository
 {
-    public class DisciplinesSQLRepository : IDisciplinesReporistory
+    public class DisciplinesSQLRepository : IDisciplinesRepository
     {
         private readonly ApplicationDbContext _context;
 

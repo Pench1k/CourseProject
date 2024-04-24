@@ -1,0 +1,121 @@
+﻿@using BLL.ViewModel
+@model List<SlotsShow>
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .custom-table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .custom-table th, .custom-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        .custom-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .custom-table td {
+            text-align: left;
+        }
+
+        .custom-table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #e0e0e0;
+        }
+</style>
+
+<h1>Расписание занятий</h1>
+
+<div class="table-responsive">
+    <table class="table custom-table">
+        <thead>
+            <tr>
+                <th>День недели</th>
+                <th>Время</th>
+                <th>Занятие</th>
+                @if (User.IsInRole("Студент"))
+                {
+                    <th>Преподаватель</th>
+                }
+                else
+                {
+                    <th>Группа</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (User.IsInRole("Студент"))
+            {
+                @foreach (var group in Model.GroupBy(x => x.DayOfTheWeek))
+                {
+                    var isFirstRow = true;
+                    foreach (var slot in group)
+                    {
+                        <tr>
+                            @if (isFirstRow)
+                            {
+                                <td rowspan="@group.Count()" class="align-middle">@GetDayOfWeek(slot.DayOfTheWeek)</td>
+                                isFirstRow = false;
+                            }
+                            <td>@slot.StartTime - @slot.EndTime</td>
+                            <td>@(string.IsNullOrEmpty(slot.DisciplineName) ? "-" : $"{slot.DisciplineName} ({slot.TypeSchedule})")</td>
+                            <td>@slot.WorkerSurname</td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                @foreach (var group in Model.GroupBy(x => new { x.DayOfTheWeek, x.StartTime, x.DisciplineName, x.TypeSchedule }))
+                {
+                    var isFirstRow = true;
+                    foreach (var slot in group)
+                    {
+                        <tr>
+                            @if (isFirstRow)
+                            {
+                                <td rowspan="@group.Count()" class="align-middle">@GetDayOfWeek(slot.DayOfTheWeek)</td>
+                                <td rowspan="@group.Count()" class="align-middle">@slot.StartTime - @slot.EndTime</td>
+                                <td rowspan="@group.Count()" class="align-middle">@($"{slot.DisciplineName} ({slot.TypeSchedule})")</td>
+                                isFirstRow = false;
+                            }
+                            <td>@slot.GroupName - @slot.Course@slot.GroupNumber</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@functions {
+    string GetDayOfWeek(int dayOfWeek)
+    {
+        switch (dayOfWeek)
+        {
+            case 1:
+                return "Понедельник";
+            case 2:
+                return "Вторник";
+            case 3:
+                return "Среда";
+            case 4:
+                return "Четверг";
+            case 5:
+                return "Пятница";
+            default:
+                return "Неизвестно";
+        }
+    }
+}

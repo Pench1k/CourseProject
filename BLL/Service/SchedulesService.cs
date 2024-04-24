@@ -9,11 +9,11 @@ namespace BLL.Service
 {
     public class SchedulesService : ISchedulesService
     {
-        private readonly ISchedulesReporitory _schedulesRepository;
+        private readonly ISchedulesRepository _schedulesRepository;
         private readonly IDisciplinesService _disciplinesService;
         private readonly IGroupsService _groupsService;
         private readonly IMapper _mapper;
-        public SchedulesService(ISchedulesReporitory schedulesRepository, IDisciplinesService disciplinesService, IGroupsService groupsService, IMapper mapper)
+        public SchedulesService(ISchedulesRepository schedulesRepository, IDisciplinesService disciplinesService, IGroupsService groupsService, IMapper mapper)
         {
             _schedulesRepository = schedulesRepository;
             _disciplinesService = disciplinesService;

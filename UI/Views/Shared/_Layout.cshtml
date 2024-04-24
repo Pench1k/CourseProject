@@ -30,24 +30,23 @@
     {
         <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="@Url.Action("Profile", "User", new { id = UserManager.GetUserId(User) })"><i class="bi bi-person-circle"></i><span>&nbsp;</span> Профиль</a>
+                <a class="navbar-brand" href="@Url.Action("Profile", "User", new { id = UserManager.GetUserId(User) })"><i class="bi bi-person-circle"></i><span>&nbsp;</span> Личный кабинет</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a class="nav-link" href="@Url.Action("Schedules", "Study", new { id = UserManager.GetUserId(User) })">
+                    Расписание
+                    <span class="visually-hidden">(current)</span>
+                </a>
                 <div class="collapse navbar-collapse" id="navbarColor03">
                     @if (User.IsInRole("Студент"))
                     {
 
                         <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Успеваимость
-                                    <span class="visually-hidden">(current)</span>
-                                </a>
-                            </li>
+
                             @* <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
-                            </li> *@
+                    <a class="nav-link" href="#">Features</a>
+                    </li> *@
                         </ul>
                     }
                     @if (User.IsInRole("Преподаватель"))
@@ -61,8 +60,8 @@
                                 </a>
                             </li>
                             @* <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
-                            </li> *@
+                    <a class="nav-link" href="#">Features</a>
+                    </li> *@
                         </ul>
                     }
 
@@ -76,9 +75,9 @@
                                     <span class="visually-hidden">(current)</span>
                                 </a>
                             </li>
-@*                             <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
-                            </li> *@
+                            @*                             <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                    </li> *@
 
                         </ul>
                     }
@@ -93,9 +92,9 @@
                                     <span class="visually-hidden">(current)</span>
                                 </a>
                             </li>
-@*                             <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
-                            </li> *@
+                            @*                             <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                    </li> *@
                         </ul>
                     }
 
@@ -120,7 +119,7 @@
 
     <div class="container-fluid">
         <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-            <div class="logo-footer">
+            <div class="logo-footer d-flex justify-content-center">
                 <a href="https://www.edu.gstu.by/?redirect=0">
                     <img src="//www.edu.gstu.by/pluginfile.php/1/theme_eguru/logo/1707827176/gomel_new_logo.png" width="183" height="120" alt="EDU.GSTU.BY">
                 </a>

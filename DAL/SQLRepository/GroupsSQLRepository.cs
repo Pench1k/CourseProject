@@ -4,7 +4,7 @@ using DAL.Models;
 
 namespace DAL.SQLRepository
 {
-    public class GroupsSQLRepository : IGroupsReporitory
+    public class GroupsSQLRepository : IGroupsRepository
     {
         private readonly ApplicationDbContext _context;
 

@@ -8,10 +8,10 @@ namespace BLL.Service
 {
     public class DisciplinesService : IDisciplinesService
     {
-        private readonly IDisciplinesReporistory _disciplinesReporistory;
+        private readonly IDisciplinesRepository _disciplinesReporistory;
         private readonly IMapper _mapper;
 
-        public DisciplinesService(IDisciplinesReporistory disciplinesReporistory, IMapper mapper)
+        public DisciplinesService(IDisciplinesRepository disciplinesReporistory, IMapper mapper)
         {
             _disciplinesReporistory = disciplinesReporistory;
             _mapper = mapper;

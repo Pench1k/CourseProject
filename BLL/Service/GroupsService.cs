@@ -8,9 +8,9 @@ namespace BLL.Service
 {
     public class GroupsService : IGroupsService
     {
-        private readonly IGroupsReporitory _groupsReporitory;
+        private readonly IGroupsRepository _groupsReporitory;
         private readonly IMapper _mapper;
-        public GroupsService(IGroupsReporitory groupsReporitory, IMapper mapper)
+        public GroupsService(IGroupsRepository groupsReporitory, IMapper mapper)
         {
             _groupsReporitory = groupsReporitory;
             _mapper = mapper;

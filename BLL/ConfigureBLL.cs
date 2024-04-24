@@ -13,7 +13,6 @@ namespace BLL
             services.ConfigureDALServices(connString);
 
             services.AddAutoMapper(typeof(MappingProfile));
-
             services.AddScoped<IDepartmentsService, DepartmentsService>();
             services.AddScoped<IDisciplinesService, DisciplinesService>();
             services.AddScoped<IFacultyesService, FacultyesService>();
@@ -26,7 +25,7 @@ namespace BLL
             services.AddScoped<IStudentsService, StudentsService>();
             services.AddScoped<IWorkersService, WorkersService>();
             services.AddScoped<IUserService, UserService>();
-        
+            services.AddScoped<IStudyService, StudyService>();      
         }
     }
 }

@@ -3,7 +3,7 @@ using DAL.Models;
 
 namespace DAL.Interfaces
 {
-    public interface IGroupsReporitory : IRepository<Groups>
+    public interface IGroupsRepository : IRepository<Groups>
     {
         Groups Find(Func<Groups, bool> predicate);
 

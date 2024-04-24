@@ -5,7 +5,7 @@ using DAL.Models;
 
 namespace DAL.SQLRepository
 {
-    public class SchedulesSQLRepository : ISchedulesReporitory
+    public class SchedulesSQLRepository : ISchedulesRepository
     {
         private readonly ApplicationDbContext _context;
 

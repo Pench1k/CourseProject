@@ -15,7 +15,7 @@ namespace BLL.Service
     {
         private readonly IUserRepository _userRepository;
         private readonly IStudentsRepository _studentsRepository;
-        private readonly IGroupsReporitory _groupsReporitory;
+        private readonly IGroupsRepository _groupsReporitory;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IFacultyesRepository _facultyesRepository;
         private readonly IWorkersRepository _workersRepository;
@@ -24,7 +24,7 @@ namespace BLL.Service
         public UserService(IUserRepository userRepository, 
             IMapper mapper, 
             IStudentsRepository studentsRepository, 
-            IGroupsReporitory groupsReporitory, 
+            IGroupsRepository groupsReporitory, 
             IDepartmentRepository departmentRepository,
             IFacultyesRepository facultyesRepository,
             IWorkersRepository workersRepository)
@@ -79,18 +79,35 @@ namespace BLL.Service
             };
             if (role[0].Equals("Студент"))
             {
-                userView.Students = _studentsRepository.Find(student => student.UserId == user.Id);
+                GetStudentInfo(userView);
+            }
+            else
+            {
+                GetWorkerInfo(userView);
+            }
+            return userView;
+        }
+
+        private void GetStudentInfo(UserView userView)
+        {
+            var student = _studentsRepository.Find(student => student.UserId == userView.User.Id);
+            if (student != null)
+            {
+                userView.Students = student;
                 userView.Groups = _groupsReporitory.Find(group => group.Id == userView.Students.GroupsId);
                 userView.Departments = _departmentRepository.Get(userView.Groups.DepartmentId);
                 userView.Facultyes = _facultyesRepository.Get(userView.Departments.FacultyesId);
-            }            
-            else
+            }
+        }
+        private void GetWorkerInfo(UserView userView)
+        {
+            var worker = _workersRepository.Find(x => x.UserId == userView.User.Id);
+            if (worker != null)
             {
-                userView.Workers = _workersRepository.Find(x => x.UserId == user.Id);
+                userView.Workers = worker;
                 userView.Departments = _departmentRepository.Get(userView.Workers.DepartmentId);
                 userView.Facultyes = _facultyesRepository.Get(userView.Departments.FacultyesId);
             }
-            return userView;
         }
     }
 }
