@@ -1,0 +1,46 @@
+﻿@using BLL.ViewModel
+@model List<SchedulesForTeacher>
+
+<style>
+    /* Стили для изменения курсора при наведении на строку */
+    .clickable-row:hover {
+        cursor: pointer;
+        background-color: #808080; /* Изменение цвета фона при наведении */
+        border: 2px solid #808080
+    }
+</style>
+
+<h1>Журнал</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Группа</th>
+            <th>Дисциплина</th>
+            <th>Тип пары</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model)
+        {
+            <tr class="clickable-row" data-group-id="@schedule.GroupId" data-schedule-id="@schedule.ScheduleId">
+                <td>@schedule.GroupName - @schedule.Course@schedule.GroupNumber</td>
+                <td>@schedule.DisciplineName</td>
+                <td>@schedule.TypeSchedule</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('.clickable-row').click(function () {
+            var groupId = $(this).data('group-id');
+            var scheduleId = $(this).data('schedule-id');
+            window.location.href = '/Study/Details?groupId=' + groupId + '&scheduleId=' + scheduleId;
+        });
+    });
+</script>
+
+
+

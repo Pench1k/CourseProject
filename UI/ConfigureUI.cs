@@ -40,6 +40,7 @@ namespace UI
                 options.ReturnUrlParameter = string.Empty;
             });
 
+
             
         }
     }
@@ -70,7 +71,6 @@ namespace UI
             //};
 
             //services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connString));
-
             //IdentityResult userResult;
             //IWorkersService workerService = new WorkersService(new WorkersSQLRepository(new ApplicationDbContext()),
             //    new AutoMapper.MapperConfiguration(cfg => cfg.AddProfile(new BLL.Mappers.MappingProfile())).CreateMapper());

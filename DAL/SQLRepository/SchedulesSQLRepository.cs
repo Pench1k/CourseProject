@@ -2,6 +2,7 @@
 using DAL.DbContext;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.SQLRepository
 {

@@ -1,6 +1,7 @@
 ﻿using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.SQLRepository
 {
@@ -8,11 +9,12 @@ namespace DAL.SQLRepository
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
+        
         public UserRepository(UserManager<User> userMeneger, SignInManager<User> signInManager)
         {
             _userManager = userMeneger;
             _signInManager = signInManager;
+           
         }
 
 
@@ -78,9 +80,17 @@ namespace DAL.SQLRepository
 
         public async Task<IList<string>> GetUserRole(User user)
         {
-            var role = await _userManager.GetRolesAsync(user);
-            return role;
-
+            try
+            {
+                var role = await _userManager.GetRolesAsync(user);
+                return role;
+            }
+            catch (Exception ex)
+            {
+                // Записать информацию об исключении в логи
+                Console.WriteLine(ex);
+                throw; // Повторное возбуждение исключения для передачи его наружу
+            }
         }
 
     }

@@ -34,11 +34,12 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="nav-link" href="@Url.Action("Schedules", "Study", new { id = UserManager.GetUserId(User) })">
-                    Расписание
-                    <span class="visually-hidden">(current)</span>
-                </a>
+                
                 <div class="collapse navbar-collapse" id="navbarColor03">
+                    <a class="navbar-brand" href="@Url.Action("Schedules", "Study", new { id = UserManager.GetUserId(User) })">
+                        Расписание
+                        <span class="visually-hidden">(current)</span>
+                    </a>
                     @if (User.IsInRole("Студент"))
                     {
 
@@ -54,7 +55,7 @@
 
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="navbar-brand" href="@Url.Action("Omissions", "Study", new {id = UserManager.GetUserId(User)})">
                                     Проставить пропуски
                                     <span class="visually-hidden">(current)</span>
                                 </a>
@@ -78,7 +79,6 @@
                             @*                             <li class="nav-item">
                     <a class="nav-link" href="#">Features</a>
                     </li> *@
-
                         </ul>
                     }
 

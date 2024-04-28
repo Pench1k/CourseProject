@@ -6,11 +6,10 @@
 
         public int SlotScheduleId { get; set; }
 
-        public SlotsSchedules SlotSchedule { get; set; }
+        public SlotsSchedules? SlotSchedule { get; set; }
 
+        public DateTime Date { get; set; }
         public TypePair TypePair { get; set; }
-
-
     }
     public enum TypePair 
     {

@@ -34,6 +34,11 @@ namespace DAL.SQLRepository
             return _context.Students.FirstOrDefault(predicate);
         }
 
+        public List<Students> FindAll(Func<Students, bool> predicate)
+        {
+            return _context.Students.Where(predicate).ToList();
+        }
+
         public Students Get(int id) => _context.Students.Find(id);
        
 

@@ -3,6 +3,7 @@ using BLL.DTO;
 using BLL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Service
 {
@@ -31,6 +32,14 @@ namespace BLL.Service
 
 
 
-        public void Update(MarksDTO entity) => _marksRepository.Update(_mapper.Map<Marks>(entity));
+        public void Update(MarksDTO entity)
+        {
+            _marksRepository.Update(_mapper.Map<Marks>(entity));
+        }
+
+        public MarksDTO GetMarkByStudentIdAndPairId(int studentId, int pairId)
+        {
+            return _mapper.Map<MarksDTO>(_marksRepository.Find(x => x.StudentId == studentId && x.PairsId == pairId));
+        }
     }
 }

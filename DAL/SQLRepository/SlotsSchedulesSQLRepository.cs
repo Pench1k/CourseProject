@@ -40,5 +40,13 @@ namespace DAL.SQLRepository
             _context.SlotsSchedules.Update(entity);
             _context.SaveChanges();
         }
+
+        public List<int> GetSlotsSchedulesIdsForDayOfWeek(int dayOfWeek)
+        {
+            return _context.SlotsSchedules
+                .Where(s => s.Slots.DayOfTheWeek == dayOfWeek)
+                .Select(s => s.Id)
+                .ToList();
+        }
     }
 }

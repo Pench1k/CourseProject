@@ -4,7 +4,7 @@ namespace BLL.DTO
 {
     public class MarksDTO
     {
-        public int MarksId { get; set; }
+        public int Id { get; set; }
 
         public int MarksCount { get; set; }
 
