@@ -1,4 +1,6 @@
-﻿namespace DAL.Models
+﻿using System.Text.Json.Serialization;
+
+namespace DAL.Models
 {
     public class Pairs
     {
@@ -6,6 +8,7 @@
 
         public int SlotScheduleId { get; set; }
 
+        
         public SlotsSchedules? SlotSchedule { get; set; }
 
         public DateTime Date { get; set; }

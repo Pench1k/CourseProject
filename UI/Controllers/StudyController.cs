@@ -1,12 +1,9 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
-using BLL.Service;
 using BLL.ViewModel;
-using DAL.Interfaces;
-using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace UI.Controllers
 {
@@ -61,6 +58,7 @@ namespace UI.Controllers
             return Json(new { groupMembers = groupMembers, availableDates = availableDates });
         }
 
+        [Authorize(Roles = "Преподаватель")]
         [HttpGet("Study/Details/")]
         public async Task<IActionResult> Details(int groupId, int scheduleId)
         {
@@ -75,6 +73,7 @@ namespace UI.Controllers
             return View(groupMembers);
         }
 
+        [Authorize(Roles = "Преподаватель")]
         [HttpPost]
         public IActionResult SaveMarks([FromBody] MarksViewModel mark)
         {
@@ -94,6 +93,7 @@ namespace UI.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("/Study/GetMark")]
         public IActionResult GetMark(int studentId, int pairId)
         {
@@ -109,6 +109,26 @@ namespace UI.Controllers
                 // Если оценка не найдена, возвращаем пустой результат
                 return Json(null);
             }
+        }
+
+        [Authorize]
+        [HttpGet("Study/Grade/{id}")]
+        public async Task<IActionResult> Grade(string id)
+        {
+            var student = await _userService.GetUserInfo(id);
+            var groupSchedules = await _studyService.GetSchedulesForGroup(student.Groups.Id);
+
+            ViewBag.Student = student;
+
+            return View(groupSchedules);
+        }
+
+        [Authorize]
+        [HttpGet("Study/DetailsForStudent/")]
+        public IActionResult DetailsForStudent(int groupId, int scheduleId, int studentId)
+        {
+            var availableDates = _studyService.GetPairDatesForSchedule(scheduleId);           
+            return Json(new { AvailableDates = availableDates });
         }
     }
 }

@@ -21,7 +21,7 @@ namespace UI.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View(_schedulesService.SchedulesWithDisciplineGetAll());
+            return View();
         }
 
         public IActionResult Privacy()

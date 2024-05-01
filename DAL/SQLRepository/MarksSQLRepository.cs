@@ -36,6 +36,11 @@ namespace DAL.SQLRepository
             return _context.Marks.AsNoTracking().FirstOrDefault(predicate);
         }
 
+        public List<Marks> FindAll(Func<Marks, bool> predicate)
+        {
+            return _context.Marks.Where(predicate).ToList();
+        }
+
         public Marks Get(int id) => _context.Marks.Find(id);
         
         public List<Marks> GetAll() => _context.Marks.ToList();

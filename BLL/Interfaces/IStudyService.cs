@@ -13,5 +13,6 @@ namespace BLL.Interfaces
         List<SchedulesForTeacher> GetSchedulesForWorker(int workerId);
         Task<List<StudentWithUser>> StudentWithUsers(int groupId);
         List<PairsDTO> GetPairDatesForSchedule(int scheduleId);
+        Task<List<ScheduleForGroupViewModel>> GetSchedulesForGroup(int groupId);
     }
 }

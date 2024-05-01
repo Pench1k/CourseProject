@@ -52,9 +52,9 @@
                     @foreach (var pair in ViewBag.AvailableDates)
                     {
                         <td>
-                            <select class="form-select" id="grade-@student.StudentId-@pair.Id" data-student-id="@student.StudentId" data-pair-id="@pair.Id">
+                            <select class="form-select font-weight-bold text-primary" id="grade-@student.StudentId-@pair.Id" data-student-id="@student.StudentId" data-pair-id="@pair.Id">
                                 <option value="-1"></option>
-                                <option value="0">Пропуск</option>
+                                <option value="0">Н</option>
                                 @if (@ViewBag.Schedules.TypeSchedule == TypeSchedule.Практика)
                                 {
                                     <option value="1">1</option>
@@ -108,8 +108,7 @@
                 type: 'GET',
                 dataType: 'json',
                 data: { studentId: studentId, pairId: pairId },
-                success: function (data) {
-                    console.log(data)
+                success: function (data) {                  
                     if (data !== null) {
                         gradeSelector.val(data.marksCount);
                     }

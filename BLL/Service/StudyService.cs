@@ -4,11 +4,7 @@ using BLL.Interfaces;
 using BLL.ViewModel;
 using DAL.Interfaces;
 using DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Security.Cryptography.Xml;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
+using System.Security.Cryptography;
 
 namespace BLL.Service
 {
@@ -21,9 +17,10 @@ namespace BLL.Service
         private readonly IGroupsRepository _groupRepository;
         private readonly IWorkersRepository _workerRepository;
         private readonly IGroupsSchedulesRepository _groupsSchedulesRepository;              
-        private readonly IUserService _aspNetUserRepository;
+        private readonly IUserService _aspNetUserService;
         private readonly IPairsRepository _pairsRepository;
         private readonly IStudentsRepository _studentsRepository;
+        private readonly IMarksRepository _marksRepository;
         private readonly IMapper _mapper;
         public StudyService(ISlotsRepository slotRepository,
                             ISlotsSchedulesRepository slotsSchedulesRepository,
@@ -35,6 +32,7 @@ namespace BLL.Service
                             IUserService aspNetUserRepository,
                             IPairsRepository pairsRepository,
                             IStudentsRepository studentsRepository,
+                            IMarksRepository marksRepository,
                             IMapper mapper)
         {
             _slotRepository = slotRepository;
@@ -45,14 +43,15 @@ namespace BLL.Service
             _groupRepository = groupRepository;
             _workerRepository = workerRepository;
             _pairsRepository = pairsRepository;
-            _aspNetUserRepository = aspNetUserRepository;
+            _aspNetUserService = aspNetUserRepository;
             _studentsRepository = studentsRepository;
+            _marksRepository = marksRepository;
             _mapper = mapper;
         }
 
         public async Task<List<SlotsShow>> GetScheduleGroup(string id)
         {
-            var user = await _aspNetUserRepository.GetUserInfo(id);
+            var user = await _aspNetUserService.GetUserInfo(id);
 
             var slots = _slotRepository.GetAll();
             var slotsSchedules = _slotsSchedulesRepository.GetAll();
@@ -61,7 +60,7 @@ namespace BLL.Service
             var groupsSchedules = _groupsSchedulesRepository.GetAll();
             var groups = _groupRepository.GetAll();
             var workers = _workerRepository.GetAll();
-            var aspNetUsers = await _aspNetUserRepository.GetAllUsers();
+            var aspNetUsers = await _aspNetUserService.GetAllUsers();
 
             var query = from slot in slots
                         join slotSchedule in slotsSchedules on slot.Id equals slotSchedule.SlotsId into slotSchedulesGroup
@@ -157,7 +156,7 @@ namespace BLL.Service
             var studentWithUsersList = new List<StudentWithUser>();
             foreach (Students student in students)
             {
-                var user = await _aspNetUserRepository.GetUserInfo(student.UserId);
+                var user = await _aspNetUserService.GetUserInfo(student.UserId);
                
                 studentWithUsersList.Add(new StudentWithUser
                 {
@@ -183,5 +182,35 @@ namespace BLL.Service
             return _mapper.Map<List<PairsDTO>>(pairDates);
         }
 
-    }   
+        public async Task<List<ScheduleForGroupViewModel>> GetSchedulesForGroup(int groupId)
+        {
+            var schedules = _scheduleRepository.GetAll();
+            var workers = _workerRepository.GetAll();
+            var disciplines = _disciplineRepository.GetAll();
+            var groupsSchedules = _groupsSchedulesRepository.GetAll();
+            var groups = _groupRepository.GetAll();
+            var users = await _aspNetUserService.GetAllUsers();
+
+            var schedulesForGroup = from groupS in groups
+                                    join groupSchedules in groupsSchedules on groupS.Id equals groupSchedules.GroupsId
+                                    join schedule in schedules on groupSchedules.SchedulesId equals schedule.Id
+                                    join discipline in disciplines on schedule.DisciplinesId equals discipline.Id
+                                    join worker in workers on schedule.WorkerId equals worker.Id
+                                    join user in users on worker.UserId equals user.Id
+                                    where groupS.Id == groupId
+                                    select new ScheduleForGroupViewModel
+                                    {
+                                        WorkerId = worker.Id,
+                                        Surname = user.Surname,
+                                        Name = user.Name,
+                                        MiddleName = user.MiddleName,
+                                        ScheduleId = schedule.Id,
+                                        GroupId = groupId,
+                                        DisciplineName = discipline.DisciplineName,
+                                        TypeSchedule = schedule.TypeSchedule,
+                                    };
+
+            return schedulesForGroup.ToList();
+        }
+    }    
 }

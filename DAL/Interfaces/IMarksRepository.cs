@@ -6,6 +6,7 @@ namespace DAL.Interfaces
 {
     public interface IMarksRepository : IRepository<Marks>
     {
-        public Marks Find(Func<Marks, bool> predicate);
+        Marks Find(Func<Marks, bool> predicate);
+        List<Marks> FindAll(Func<Marks, bool> predicate);
     }
 }

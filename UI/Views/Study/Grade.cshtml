@@ -1,0 +1,143 @@
+﻿@using BLL.ViewModel
+@model List<ScheduleForGroupViewModel>
+
+<h1 class="mt-3">Успеваемость</h1>
+
+<div class="row justify-content-end mt-3">
+    <div class="col-auto">
+        <input type="text" class="form-control" id="searchInput" placeholder="Поиск предметов">
+    </div>
+</div>
+
+<div class="row mt-3" id="scheduleCards">
+    @foreach (var schedule in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card clickable-card" data-group-id="@schedule.GroupId" data-schedule-id="@schedule.ScheduleId" data-student-id="@ViewBag.Student.Students.Id">
+                <div class="card-body">
+                    <h5 class="card-title">@schedule.DisciplineName</h5>
+                    <p class="card-text">Преподаватель: @schedule.Surname</p>
+                    <p class="card-text">Тип пары: @schedule.TypeSchedule</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Успеваемость</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <table class="table">
+                    <thead id="modalTableHead">
+                    </thead>
+                    <tbody id="modalTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Обработчик события ввода в поле поиска
+        $('#searchInput').on('input', function () {
+            var searchText = $(this).val().toLowerCase(); // Получаем введенный текст и приводим к нижнему регистру
+
+            // Проходимся по каждому предмету и скрываем те, которые не соответствуют введенному тексту
+            $('#scheduleCards .card').each(function () {
+                var disciplineName = $(this).find('.card-title').text().toLowerCase(); // Получаем название предмета и приводим к нижнему регистру
+
+                // Проверяем, содержит ли название предмета введенный текст
+                if (disciplineName.includes(searchText)) {
+                    $(this).show(); // Отображаем предмет, если он соответствует запросу
+                } else {
+                    $(this).hide(); // Скрываем предмет, если он не соответствует запросу
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('.clickable-card').click(function () {
+            var groupId = $(this).data('group-id');
+            var scheduleId = $(this).data('schedule-id');
+            var studentId = $(this).data('student-id');
+
+            $.ajax({
+                url: '/Study/DetailsForStudent/',
+                type: 'GET',
+                data: { groupId: groupId, scheduleId: scheduleId, studentId: studentId },
+                success: function (data) {
+                    $('#modalTableHead').empty();
+                    $('#modalTableBody').empty();
+
+                    var availableDates = data.availableDates;
+
+                    // Добавляем заголовки дат в таблицу модального окна
+                    var headerRow = '<tr>';
+                    var bodyRow = '<tr>';
+                    availableDates.forEach(function (pair) {
+                        headerRow += '<th>' + formatDate(pair.date) + '</th>';
+                        bodyRow += '<td data-pair-id="' + pair.id + '"></td>';
+                    });
+                    bodyRow += '</tr>';
+                    headerRow += '</tr>';
+
+                    $('#modalTableHead').append(headerRow);
+                    $('#modalTableBody').append(bodyRow);
+
+                    // Добавляем данные в таблицу модального окна
+                    $('#modalTableBody td[data-pair-id]').each(function () {
+                        var pairId = $(this).data('pair-id');
+                        $.ajax({
+                            url: '/Study/GetMark',
+                            type: 'GET',
+                            data: { studentId: studentId, pairId: pairId },
+                            success: function (markData) {
+                                var cellContent;
+                                if (markData !== undefined && markData !== null) {
+                                    if (markData.marksCount === 0)
+                                        cellContent = 'Н';
+                                    else
+                                        cellContent = markData.marksCount;
+                                } else {
+                                    cellContent = '-';
+                                }
+                                $(this).text(cellContent);
+                            }.bind(this),  // Используем bind(this), чтобы сохранить контекст this
+                            error: function () {
+                                $(this).text('Ошибка при получении оценки');
+                            }.bind(this)  // Используем bind(this), чтобы сохранить контекст this
+                        });
+                    });
+
+                    $('#exampleModal').modal('show');
+                },
+                error: function () {
+                    alert('Ошибка при получении данных о датах пар.');
+                }
+            });
+        });
+    });
+
+    // Функция для форматирования даты
+    function formatDate(dateString) {
+        var date = new Date(dateString);
+        var day = ('0' + date.getDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getFullYear();
+        return day + '.' + month + '.' + year;
+    }
+
+</script>
+
+

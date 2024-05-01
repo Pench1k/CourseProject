@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using System.Text.Json.Serialization;
 
 namespace BLL.DTO
 {
@@ -8,7 +9,8 @@ namespace BLL.DTO
 
         public int SlotScheduleId { get; set; }
 
-        public SlotsSchedules SlotSchedule { get; set; }
+        //[JsonIgnore]
+        //public SlotsSchedules SlotSchedule { get; set; }
         public DateTime Date { get; set; }
         public TypePair TypePair { get; set; }
     }
