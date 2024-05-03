@@ -65,23 +65,11 @@
                     {
 
                             <li class="nav-item">
-                                <a class="navbar-brand" href="">
-                                    Добавить студента
+                                <a class="navbar-brand" href="@Url.Action("Groups", "Study", new {id = UserManager.GetUserId(User)})">
+                                    Редактирование групп
                                     <span class="visually-hidden">(current)</span>
                                 </a>
                             </li>
-                    }
-
-                    @if (User.IsInRole("Секретарь"))
-                    {
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Проставить пропуски
-                                    <span class="visually-hidden">(current)</span>
-                                </a>
-                            </li>                         
-
                     }
                     </ul>
 

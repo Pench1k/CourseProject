@@ -130,5 +130,14 @@ namespace UI.Controllers
             var availableDates = _studyService.GetPairDatesForSchedule(scheduleId);           
             return Json(new { AvailableDates = availableDates });
         }
+
+        [Authorize(Roles = "Заместитель кафедры")]
+        [HttpGet("Study/Groups/{id}")]
+        public async Task<IActionResult> Groups(string id)
+        {
+            var viceDepartment = await _userService.GetUserInfo(id);
+            var allGroups = _studyService.GetGroupsOnDepartments(viceDepartment.Departments.Id);
+            return View(allGroups);
+        }
     }
 }

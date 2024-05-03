@@ -165,7 +165,9 @@ namespace BLL.Service
                     UserId = user.User.Id,
                     Surname = user.User.Surname,
                     Name = user.User.Name,
-                    MiddleName = user.User.MiddleName
+                    MiddleName = user.User.MiddleName,
+                    UserName = user.User.UserName,
+                    Password = user.User.PasswordHash
                 });
             }
             return studentWithUsersList;
@@ -211,6 +213,11 @@ namespace BLL.Service
                                     };
 
             return schedulesForGroup.ToList();
+        }
+
+        public List<GroupsDTO> GetGroupsOnDepartments(int departmentId)
+        {
+            return _mapper.Map<List<GroupsDTO>>(_groupRepository.FindAll(x => x.DepartmentId == departmentId));
         }
     }    
 }

@@ -5,7 +5,7 @@ namespace BLL.DTO
 {
     public class GroupsDTO
     {
-        public int GroupId { get; set; }
+        public int Id { get; set; }
         public string NameGroup { get; set; }
         public int NumberGroup { get; set; }
         public int Course { get; set; }

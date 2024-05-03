@@ -7,6 +7,7 @@ using BLL.ViewModel;
 using DAL.Interfaces;
 using DAL.Models;
 using DAL.SQLRepository;
+using Microsoft.AspNetCore.Identity;
 using System.Xml.Linq;
 
 namespace BLL.Service
@@ -38,14 +39,14 @@ namespace BLL.Service
             _workersRepository = workersRepository;
 
         }
-        public async Task CreateUser(UserDTO user, string password)
+        public async Task<IdentityResult> CreateUser(UserDTO user, string password)
         {
-            await _userRepository.Create(_mapper.Map<User>(user), password);
+           return await _userRepository.Create(_mapper.Map<User>(user), password);
         }
 
-        public async Task DeleteUser(UserDTO user)
+        public async Task<IdentityResult> DeleteUser(UserDTO user)
         {
-            await _userRepository.Delete(_mapper.Map<User>(user));
+           return await _userRepository.Delete(_mapper.Map<User>(user));
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsers()
@@ -53,9 +54,9 @@ namespace BLL.Service
             return (await _userRepository.GetAll()).Select(u => _mapper.Map<UserDTO>(u));
         }
 
-        public async Task<UserDTO> GetUserByEmail(string email)
+        public UserDTO GetUserByName(string name)
         {
-            return _mapper.Map<UserDTO>(await _userRepository.FindByEmailAsync(email));
+            return _mapper.Map<UserDTO>(_userRepository.FindByName(name));
         }
         public async Task<UserDTO> LoginUser(string userName, string password)
         {
@@ -108,6 +109,32 @@ namespace BLL.Service
                 userView.Departments = _departmentRepository.Get(userView.Workers.DepartmentId);
                 userView.Facultyes = _facultyesRepository.Get(userView.Departments.FacultyesId);
             }
+        }
+        public async Task<IdentityResult> AddRoleToUser(string userId, string roleName)
+        {
+            var user = await _userRepository.GetUserInfo(userId);
+            return await _userRepository.AddRoleToUser(user, roleName);
+        }
+
+        public async Task<UserDTO> FindByIdAsync(string id)
+        {
+            var user = await _userRepository.FindByIdAsync(id);
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        public Task<IdentityResult> UpdateAsync(UserDTO user)
+        {
+            return _userRepository.UpdateAsync(_mapper.Map<User>(user));
+        }
+
+        public Task<IdentityResult> RemovePasswordAsync(UserDTO user)
+        {
+            return _userRepository.RemovePasswordAsync(_mapper.Map<User>(user));
+        }
+
+        public Task<IdentityResult> AddPasswordAsync(UserDTO user, string newPassword)
+        {
+            return _userRepository.AddPasswordAsync(_mapper.Map<User>(user), newPassword);
         }
     }
 }

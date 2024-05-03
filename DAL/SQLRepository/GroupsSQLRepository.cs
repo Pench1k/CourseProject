@@ -35,6 +35,11 @@ namespace DAL.SQLRepository
             return _context.Groups.FirstOrDefault(predicate);
         }
 
+        public List<Groups> FindAll(Func<Groups, bool> predicate)
+        {
+            return _context.Groups.Where(predicate).ToList();
+        }
+
         public Groups? Get(int id) => _context.Groups.Find(id);
        
 

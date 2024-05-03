@@ -10,9 +10,9 @@ namespace BLL.DTO
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
 
-        public string CardNumber { get; set; }
+        public string? CardNumber { get; set; }
 
-        public int GroupId { get; set; }
+        public int GroupsId { get; set; }
         public Groups Groups { get; set; }
     }
 }

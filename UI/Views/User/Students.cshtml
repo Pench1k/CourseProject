@@ -1,0 +1,216 @@
+﻿
+
+<div class="modal" id="userModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Студент </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="userId">
+                <input type="hidden" id="studentId">
+                <div class="form-group">
+                    <label for="userName">Логин</label>
+                    <input type="text" class="form-control" id="userName">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Фамилия</label>
+                    <input type="text" class="form-control" id="surname">                 
+                </div>
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" id="name">                   
+                </div>
+                <div class="form-group">
+                    <label for="middleName">Отчество</label>
+                    <input type="text" class="form-control" id="middleName">                   
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" class="form-control" id="password">          
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Повтор пароля:</label>
+                    <input type="password" class="form-control" id="confirmPassword">                
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="saveUser()">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br />
+    <h2>Студенты</h2>
+    <table id="userTable" class="text-center table table-bordered"></table>
+    <button class="btn btn-primary" data-bs-toggle="modal" onclick="clearModal()" data-bs-target="#userModal">Добавить студента</button>
+</div>
+<br />
+
+<script>
+    var editingUserId = 0;
+
+    function clearModal() {       
+        editingUserId = 0;
+        $('#userId').val('');
+        $('#studentId').val('');
+
+        $('#userName').val('');
+
+        $('#name').val('');
+        $('#surname').val('');
+        $('#middleName').val('');
+
+        $('#password').val('');
+        $('#confirmPassword').val('');          
+    }
+
+    function editUser(userId, studentId, userName, name, surname, middleName) {
+        editingUserId = userId;
+        $('#userId').val(userId);
+        $('#studentId').val(studentId);      
+        $('#userName').val(userName);
+        $('#name').val(name);
+        $('#surname').val(surname);
+        $('#middleName').val(middleName);
+        $('#password').val('');
+        $('#confirmPassword').val('');
+        $('#userModal').modal('show');
+    }
+
+    function saveUser() {           
+        var userName = $('#userName').val();
+
+        var surname = $('#surname').val();
+        var name = $('#name').val();
+        var middleName = $('#middleName').val();
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var groupId = urlParams.get('groupId');
+
+        var password = $('#password').val();
+        var confirmPassword = $('#confirmPassword').val();
+ 
+        // Добавление нового пользователя
+        if (editingUserId == 0) {
+            $.ajax({
+                url: '/User/Add',
+                type: 'POST',
+                headers: {
+                    RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // AntiForgeryToken
+                },
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    userId: '0',
+                    userName: userName,
+                    name: name,
+                    surname: surname,
+                    middleName: middleName,
+                    password: password,
+                    confirmPassword: confirmPassword,
+                    groupId: groupId
+                }),
+                success: function (data) {
+                    $('#userModal').modal('hide');
+                    var urlParams = new URLSearchParams(window.location.search);
+                    var groupId = urlParams.get('groupId');
+                    clearModal();                   
+                    loadUserData(groupId);
+                },
+                error: function (error) {
+                    alert("Error: " + error.responseText);
+                    console.log(error);
+                }
+            });
+        } else {
+            // Редактирование пользователя
+            $.ajax({
+                url: '/User/Update/' + editingUserId,
+                type: 'PUT',
+                headers: {
+                    RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // AntiForgeryToken
+                },
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    UserId: editingUserId,
+                    userName: userName,
+                    name: name,
+                    surname: surname,
+                    middleName: middleName,
+                    password: password,
+                    confirmPassword: confirmPassword
+                }),
+                success: function (data) {
+                    $('#userModal').modal('hide');
+                    var urlParams = new URLSearchParams(window.location.search);
+                    var groupId = urlParams.get('groupId');
+                    clearModal();
+                    loadUserData(groupId);
+                },
+                error: function (error) {
+                    alert("Error: " + error.responseText);
+                    console.log(error);
+                }
+            });
+        }
+    }
+
+    function deleteUser(userId) {
+        $.ajax({
+            url: '/User/Delete/' + userId,
+            type: 'DELETE',
+            headers: {
+                RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // AntiForgeryToken
+            },
+            success: function (data) {
+                var urlParams = new URLSearchParams(window.location.search);
+                var groupId = urlParams.get('groupId');
+                loadUserData(groupId);
+            },
+            error: function (error) {
+                alert("Error: " + error.responseText);
+                console.log(error);
+            }
+        });
+    }
+
+    function loadUserData(groupId) {
+        $.ajax({
+            url: '/User/GetUsers',
+            type: 'GET',
+            data: { groupId: groupId },
+            headers: {
+                RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // AntiForgeryToken
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#userTable').empty();
+                $('#userTable').append('<thead><tr><th>Фамилия</th><th>Имя</th><th>Отчество</th><th>Логин</th><th>Редактирование</th><th>Удаление</th></tr></thead><tbody>');
+                data.forEach(function (user) {
+                    var row = '<tr><td>' + user.surname + '</td><td>' + user.name + '</td><td>' + user.middleName + '</td><td>' + user.userName + '</td>' +
+                        '<td><button class="btn btn-warning" onclick="editUser(\'' + user.userId + '\', \'' + user.studentId + '\', \'' + user.userName + '\', \'' + user.name + '\', \'' + user.surname + '\', \'' + user.middleName + '\')">Редактирование</button></td>' +
+                        '<td><button class="btn btn-danger" onclick="deleteUser(\'' + user.userId + '\')">Удаление</button></td></tr>';
+                    $('#userTable').append(row);
+                });
+                $('#userTable').append('</tbody>');
+            },
+            error: function (error) {
+                console.log(error);
+            }   
+        });
+    }
+
+    $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var groupId = urlParams.get('groupId');    
+        if (groupId) {
+            loadUserData(groupId);
+        } else {
+            console.log('groupId не найден в URL');
+        }
+    });
+</script>

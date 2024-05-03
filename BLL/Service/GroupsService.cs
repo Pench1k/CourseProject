@@ -22,6 +22,10 @@ namespace BLL.Service
 
         public void Delete(int id) => _groupsReporitory.Delete(id);
 
+        public List<GroupsDTO> FindAll(Func<Groups, bool> predicate)
+        {
+            return _mapper.Map<List<GroupsDTO>>(_groupsReporitory.FindAll(predicate));
+        }
 
         public GroupsDTO Get(int id) => _mapper.Map<GroupsDTO>(_groupsReporitory.Get(id));
 
