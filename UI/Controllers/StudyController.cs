@@ -139,5 +139,31 @@ namespace UI.Controllers
             var allGroups = _studyService.GetGroupsOnDepartments(viceDepartment.Departments.Id);
             return View(allGroups);
         }
+        [Authorize(Roles = "Заместитель кафедры")]
+        [HttpGet("Study/GroupsStat/{id}")]
+        public async Task<IActionResult> GroupsStat(string id)
+        {
+            var viceDepartment = await _userService.GetUserInfo(id);
+            var allGroups = _studyService.GetGroupsOnDepartments(viceDepartment.Departments.Id);
+            return View(allGroups);
+        }
+
+        [Authorize]
+        [HttpGet("Study/GroupsSchedule")]
+        public async Task<IActionResult> GroupsSchedule(int groupId)
+        {           
+            var groupSchedules = await _studyService.GetSchedulesForGroup(groupId);         
+            return View(groupSchedules);
+        }
+
+        [HttpGet("Study/GetDetails")]
+        public async Task<IActionResult> GetDetails(int groupId, int scheduleId)
+        {
+            // Получаем результаты запроса через ваш сервис
+            var model = await _studyService.GetStudentStatistics(groupId, scheduleId);
+
+            // Возвращаем частичное представление для отображения в модальном окне
+            return Json(model);
+        }
     }
 }

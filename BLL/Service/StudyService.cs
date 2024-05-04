@@ -4,6 +4,8 @@ using BLL.Interfaces;
 using BLL.ViewModel;
 using DAL.Interfaces;
 using DAL.Models;
+using DAL.SQLRepository;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace BLL.Service
@@ -16,7 +18,7 @@ namespace BLL.Service
         private readonly IDisciplinesRepository _disciplineRepository;
         private readonly IGroupsRepository _groupRepository;
         private readonly IWorkersRepository _workerRepository;
-        private readonly IGroupsSchedulesRepository _groupsSchedulesRepository;              
+        private readonly IGroupsSchedulesRepository _groupsSchedulesRepository;
         private readonly IUserService _aspNetUserService;
         private readonly IPairsRepository _pairsRepository;
         private readonly IStudentsRepository _studentsRepository;
@@ -100,19 +102,19 @@ namespace BLL.Service
 
         public void GenerateSchedule(DateTime startDate, DateTime endDate)
         {
-            for(DateTime i = startDate; i <= endDate; i = i.AddDays(1))
+            for (DateTime i = startDate; i <= endDate; i = i.AddDays(1))
             {
-                int dayOfWeek = (int)i.DayOfWeek;                
-                if(dayOfWeek > 0 && dayOfWeek < 6) 
+                int dayOfWeek = (int)i.DayOfWeek;
+                if (dayOfWeek > 0 && dayOfWeek < 6)
                 {
                     List<int> slotSchedulesId = _slotsSchedulesRepository.GetSlotsSchedulesIdsForDayOfWeek(dayOfWeek);
                     foreach (var item in slotSchedulesId)
                     {
-                        Pairs pairs = new Pairs 
+                        Pairs pairs = new Pairs
                         {
-                           SlotScheduleId = item,
-                           TypePair = TypePair.Прошла,
-                           Date = i.Date,
+                            SlotScheduleId = item,
+                            TypePair = TypePair.Прошла,
+                            Date = i.Date,
                         };
                         _pairsRepository.Create(pairs);
                     }
@@ -157,7 +159,7 @@ namespace BLL.Service
             foreach (Students student in students)
             {
                 var user = await _aspNetUserService.GetUserInfo(student.UserId);
-               
+
                 studentWithUsersList.Add(new StudentWithUser
                 {
                     StudentId = student.Id,
@@ -219,5 +221,35 @@ namespace BLL.Service
         {
             return _mapper.Map<List<GroupsDTO>>(_groupRepository.FindAll(x => x.DepartmentId == departmentId));
         }
-    }    
+        
+        public async Task<List<StudentStatistics>> GetStudentStatistics(int groupId, int schedulesId)
+        {
+            var students = _studentsRepository.GetAll().Where(s => s.GroupsId == groupId).ToList();
+            var marks = _marksRepository.GetAllSecond()
+            .Include(m => m.Pairs)
+            .ThenInclude(p => p.SlotSchedule)
+            .ThenInclude(ss => ss.Schedules)
+            .Where(m => m.Pairs.SlotSchedule.Schedules.Id == schedulesId && m.Student.GroupsId == groupId)
+            .ToList();
+
+            var users = await _aspNetUserService.GetAllUsers();
+
+            var query = from student in students
+                        join user in users on student.UserId equals user.Id
+                        join mark in marks on student.Id equals mark.StudentId into markGroup
+                        from mark in markGroup.DefaultIfEmpty()
+                        group new { student, mark } by new { student.Id, user.Surname, user.Name, user.MiddleName } into g
+                        select new StudentStatistics
+                        {
+                            StudentId = g.Key.Id,
+                            Surname = g.Key.Surname,
+                            Name = g.Key.Name,
+                            MiddleName = g.Key.MiddleName,
+                            AverageMark = g.Select(x => x.mark != null && x.mark.MarksCount != 0 ? x.mark.MarksCount : (int?)null).Average(),
+                            Absences = g.Sum(x => x.mark != null && x.mark.MarksCount == 0 ? 1 : 0)
+                        };
+
+            return query.ToList();
+        }
+    }
 }

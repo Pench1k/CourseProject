@@ -44,7 +44,12 @@ namespace DAL.SQLRepository
         public Marks Get(int id) => _context.Marks.Find(id);
         
         public List<Marks> GetAll() => _context.Marks.ToList();
-       
+
+        public IQueryable<Marks> GetAllSecond()
+        {
+            return _context.Marks;
+        }
+
         public void Update(Marks entity)
         {
             _context.Marks.Update(entity);

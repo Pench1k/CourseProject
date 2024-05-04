@@ -1,0 +1,128 @@
+﻿@using BLL.ViewModel
+@model List<ScheduleForGroupViewModel>
+
+<style>
+    
+
+</style>
+
+<h1 class="mt-3">Успеваемость</h1>
+
+<div class="row justify-content-end mt-3">
+    <div class="col-auto">
+        <input type="text" class="form-control" id="searchInput" placeholder="Поиск предметов">
+    </div>
+</div>
+
+<div class="row mt-3" id="scheduleCards">
+    @foreach (var schedule in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card clickable-card" data-group-id="@schedule.GroupId" data-schedule-id="@schedule.ScheduleId">
+                <div class="card-body">
+                    <h5 class="card-title">@schedule.DisciplineName</h5>
+                    <p class="card-text">Преподаватель: @schedule.Surname</p>
+                    <p class="card-text">Тип пары: @schedule.TypeSchedule</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Результаты запроса</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <!-- Таблица для отображения данных -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Фамилия</th>
+                            <th>Имя</th>
+                            <th>Отчество</th>
+                            <th>Средний бал</th>
+                            <th>Количество пропусков</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modal-body-table">
+                        <!-- Здесь будут отображаться данные -->
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <strong>Общий средний балл:</strong> <span id="total-average-mark"></span><br>
+                <strong>Общее количество пропусков:</strong> <span id="total-absences"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // Обработчик события ввода в поле поиска
+        $('#searchInput').on('input', function () {
+            var searchText = $(this).val().toLowerCase(); // Получаем введенный текст и приводим к нижнему регистру
+
+            // Проходимся по каждому предмету и скрываем те, которые не соответствуют введенному тексту
+            $('#scheduleCards .card').each(function () {
+                var disciplineName = $(this).find('.card-title').text().toLowerCase(); // Получаем название предмета и приводим к нижнему регистру
+
+                // Проверяем, содержит ли название предмета введенный текст
+                if (disciplineName.includes(searchText)) {
+                    $(this).show(); // Отображаем предмет, если он соответствует запросу
+                } else {
+                    $(this).hide(); // Скрываем предмет, если он не соответствует запросу
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        // При нажатии на карточку
+        $('.clickable-card').click(function () {
+            // Получаем идентификатор группы и расписания из атрибутов данных карточки
+            var groupId = $(this).data('group-id');
+            var scheduleId = $(this).data('schedule-id');
+
+            // Выполняем AJAX-запрос к вашему контроллеру для получения результатов
+            $.ajax({
+                url: '/Study/GetDetails', // Замените на соответствующий URL вашего контроллера и действия
+                type: 'GET',
+                data: { groupId: groupId, scheduleId: scheduleId },
+                success: function (data) {
+                    // Показываем модальное окно
+                    $('#myModal').modal('show');
+
+                    // Обновляем содержимое модального окна с помощью данных JSON
+                    $('#modal-body-table').empty();
+                    var studentsWithMarks = data.filter(item => item.averageMark !== null);
+                    var totalAverageMark = studentsWithMarks.reduce((acc, item) => acc + item.averageMark, 0) / studentsWithMarks.length;
+                    // Рассчет общего количества пропусков
+                    var totalAbsences = data.reduce((acc, item) => acc + item.absences, 0);
+
+                    // Отображение рассчитанных значений в модальном окне
+                    $('#total-average-mark').text((!isNaN(totalAverageMark) ? totalAverageMark.toFixed(2) : '-'));
+
+                    $('#total-absences').text(totalAbsences);
+                    data.forEach(function (item) {
+                        var row = '<tr>';
+                        row += '<td>' + item.surname + '</td>';
+                        row += '<td>' + item.name + '</td>';
+                        row += '<td>' + item.middleName + '</td>';
+                        row += '<td>' + (item.averageMark != null ? item.averageMark : '-') + '</td>';
+                        row += '<td>' + item.absences + '</td>';
+                        row += '</tr>';
+
+                        $('#modal-body-table').append(row);
+                    });
+                }
+            });
+        });
+    });
+</script>
