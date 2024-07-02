@@ -5,10 +5,10 @@ namespace BLL.DTO
     public class DepartmentsDTO
     {
        
-        public int DepartmentId { get; set; }       
+        public int Id { get; set; }       
         public string NameDepartment { get; set; }
 
-        public int FacultyId { get; set; }
+        public int FacultyesId { get; set; }
         public FacultyesDTO Faculty { get; set; }
 
         public List<Groups> GroupsAtTheDepartment { get; set; }

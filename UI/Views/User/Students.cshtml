@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="saveUser()">Save</button>
+                <button type="button" class="btn btn-success" onclick="saveUser()">Сохранить</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
             </div>
         </div>
@@ -116,13 +116,14 @@
                 }),
                 success: function (data) {
                     $('#userModal').modal('hide');
+                    alert("Студент успешно добавлен");
                     var urlParams = new URLSearchParams(window.location.search);
                     var groupId = urlParams.get('groupId');
                     clearModal();                   
                     loadUserData(groupId);
                 },
                 error: function (error) {
-                    alert("Error: " + error.responseText);
+                    alert("Ошибка добавление, проверте правильность введеных данных");
                     console.log(error);
                 }
             });
@@ -156,6 +157,16 @@
                     console.log(error);
                 }
             });
+        }
+    }
+
+    function confirmDelete(userId) {
+        var confirmation = confirm("Вы уверены, что хотите удалить этого пользователя?");
+
+        if (confirmation) {
+            deleteUser(userId);
+        } else {
+            alert("Удаление отменено.");
         }
     }
 
@@ -193,7 +204,7 @@
                 data.forEach(function (user) {
                     var row = '<tr><td>' + user.surname + '</td><td>' + user.name + '</td><td>' + user.middleName + '</td><td>' + user.userName + '</td>' +
                         '<td><button class="btn btn-warning" onclick="editUser(\'' + user.userId + '\', \'' + user.studentId + '\', \'' + user.userName + '\', \'' + user.name + '\', \'' + user.surname + '\', \'' + user.middleName + '\')">Редактирование</button></td>' +
-                        '<td><button class="btn btn-danger" onclick="deleteUser(\'' + user.userId + '\')">Удаление</button></td></tr>';
+                        '<td><button class="btn btn-danger" onclick="confirmDelete(\'' + user.userId + '\')">Удаление</button></td></tr>';
                     $('#userTable').append(row);
                 });
                 $('#userTable').append('</tbody>');

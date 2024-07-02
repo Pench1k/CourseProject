@@ -2,7 +2,7 @@
 {
     public class DisciplinesDTO
     {
-        public int DisciplineId { get; set; }
+        public int Id { get; set; }
         public string DisciplineName { get; set; }
     }
 }

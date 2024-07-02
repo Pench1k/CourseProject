@@ -34,10 +34,19 @@ namespace DAL.SQLRepository
 
         public List<Disciplines> GetAll() => _context.Disciplines.ToList();
 
-        public void Update(Disciplines entity)
+        public void Update(Disciplines discipline)
         {
-            _context.Disciplines.Update(entity);
-            _context.SaveChanges();
+            // Получаем сущность из базы данных
+            var disciplines = _context.Disciplines.Find(discipline.Id);
+
+            if (disciplines != null)
+            {
+                // Обновляем свойства сущности
+                disciplines.DisciplineName = discipline.DisciplineName;
+
+                // Сохраняем изменения
+                _context.SaveChanges();
+            }
         }
     }
 }

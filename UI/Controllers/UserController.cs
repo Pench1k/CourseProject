@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using BLL.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using BLL.DTO;
+using DAL.Models;
+using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace UI.Controllers
 {
@@ -12,12 +16,14 @@ namespace UI.Controllers
         private readonly IUserService _userService;
         private readonly IStudyService _studyService;
         private readonly IStudentsService _studentsService;
+        private readonly HttpClient _httpClient;
 
         public UserController(IUserService userService, IStudyService studyService, IStudentsService studentsService)
         {
             _userService = userService;
             _studyService = studyService;
             _studentsService = studentsService;
+            _httpClient = HttpClientFactory.Create();
         }
 
         [AllowAnonymous]
@@ -67,8 +73,25 @@ namespace UI.Controllers
         [HttpGet("/User/GetUsers")]
         public async Task<IActionResult> GetStudents([FromQuery] int groupId)
         {
-            var students = await _studyService.StudentWithUsers(groupId);
-            return Json(students);
+            // Выполняем GET-запрос к API
+            HttpResponseMessage response = await _httpClient.GetAsync($"api/StudentsControllers/groups/{groupId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Читаем содержимое ответа как строку JSON
+                string json = await response.Content.ReadAsStringAsync();
+
+                // Десериализуем JSON в список студентов (предположим, что у вас есть класс Student)
+                var students = JsonConvert.DeserializeObject<List<StudentWithUser>>(json);
+
+                // Возвращаем список студентов как результат метода
+                return Ok(students);
+            }
+            else
+            {
+                // В случае ошибки возвращаем статус ошибки и сообщение
+                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
+            }
         }
 
         [Authorize(Roles = "Заместитель кафедры")]
@@ -88,122 +111,55 @@ namespace UI.Controllers
         [HttpPost("/User/Add")]       
         public async Task<IActionResult> AddUser([FromBody] StudentsCrud model)
         {
-            if (ModelState.IsValid)
+            string url = $"https://localhost:7226/api/StudentsControllers/Add";
+
+            // Выполняем HTTP PUT запрос
+            HttpResponseMessage response = await _httpClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
+
+            // Проверяем статус ответа
+            if (response.IsSuccessStatusCode)
             {
-                if (_userService.GetUserByName(model.UserName) != null)
-                {
-                    return StatusCode(500, "User with that username already exists.");
-                }
-                var user = new UserDTO { UserName = model.UserName, Surname = model.Surname, Name =model.Name, MiddleName = model.MiddleName};
-                var result = await _userService.CreateUser(user, model.Password);
-                if (result.Succeeded)
-                {
-                    
-                    await _userService.AddRoleToUser(user.Id, "Студент");
-                    StudentsDTO studentsDTO = new StudentsDTO
-                    {
-                        UserId = user.Id,
-                        GroupsId = model.GroupId,
-                    };
-                    _studentsService.Create(studentsDTO);
-                    return StatusCode(200, "User added successfully.");                 
-                }
-                else
-                {
-                    return StatusCode(500, "User не добавлен.");
-                }
+                return Ok(); // Возвращаем успешный результат
             }
             else
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                var errorText = "The data you have specified is not correct:" + Environment.NewLine;
-                foreach (var error in errors) errorText += error + Environment.NewLine;
-                return StatusCode(500, errorText);              
+                // В случае ошибки возвращаем статус ошибки и сообщение
+                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
             }
         }
 
         [HttpPut("User/Update/{id}")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] StudentsEdit model)
         {
-            var user = await _userService.FindByIdAsync(id);
+            string url = $"https://localhost:7226/api/StudentsControllers/Update/{id}";
 
-            if (user == null)
+            // Выполняем HTTP PUT запрос
+            HttpResponseMessage response = await _httpClient.PutAsync(url, new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
+
+            // Проверяем статус ответа
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound($"Пользователь с {id} не был найден.");
-            }
-
-            if (ModelState.IsValid)
-            {
-                user.UserName = model.UserName;               
-                user.Surname = model.Surname;
-                user.Name = model.Name;
-                user.MiddleName = model.MiddleName;
-
-                var result = await _userService.UpdateAsync(user);
-
-                if (result.Succeeded)
-                {
-
-                    if (model.Password.Length > 6)
-                    {
-                        await _userService.RemovePasswordAsync(user);
-                        await _userService.AddPasswordAsync(user, model.Password);
-                    }
-                    return StatusCode(200, "Пользователь успешно обновлен.");
-                }
-
-                string errorText = "Ошибки которые возникили при редактирование студента:" + Environment.NewLine;
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                    errorText += error.Description + Environment.NewLine;
-                }
-
-                return StatusCode(500, errorText);
+                return Ok(); // Возвращаем успешный результат
             }
             else
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                var errorText = "The data you have specified is not correct:" + Environment.NewLine;
-                foreach (var error in errors) errorText += error + Environment.NewLine;
-
-                return StatusCode(500, errorText);
+                // В случае ошибки возвращаем статус ошибки и сообщение
+                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
             }
         }
 
         [HttpDelete("User/Delete/{id}")]        
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _userService.FindByIdAsync(id);
-
-            if (user != null)
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"api/StudentsControllers/Delete/{id}");
+            if (response.IsSuccessStatusCode)
             {
-                var result = await _userService.DeleteUser(user);
-
-                if (result.Succeeded)
-                {
-                    // Пользователь успешно удален
-                    return StatusCode(200, "User deleted successfully.");
-                }
-
-                string errorText = "Some errors were occured while trying to DELETE user:" + Environment.NewLine;
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                    errorText += error.Description + Environment.NewLine;
-                }
-
-                return StatusCode(500, errorText);
+                return Ok();
             }
             else
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                var errorText = "The error while deleting user was occured:" + Environment.NewLine;
-                foreach (var error in errors) errorText += error + Environment.NewLine;
-
-                return StatusCode(500, errorText);
+                // В случае ошибки возвращаем статус ошибки и сообщение
+                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
             }
         }
     }

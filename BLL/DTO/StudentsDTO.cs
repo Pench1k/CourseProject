@@ -5,7 +5,7 @@ namespace BLL.DTO
 {
     public class StudentsDTO
     {
-        public int StudentId { get; set; }
+        public int Id { get; set; }
 
         public string UserId { get; set; }
         public IdentityUser User { get; set; }

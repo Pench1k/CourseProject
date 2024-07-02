@@ -5,7 +5,7 @@ namespace BLL.DTO
 {
     public class FacultyesDTO
     {
-        public int FacultyId { get; set; }
+        public int Id { get; set; }
 
         public string NameFaculty { get; set; }
 

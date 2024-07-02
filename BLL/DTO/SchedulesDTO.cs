@@ -6,7 +6,7 @@ namespace BLL.DTO
 {
     public class SchedulesDTO
     {
-        public int ScheduleId { get; set; }
+        public int Id { get; set; }
 
         public int WorkerId { get; set; }
         public Workers Worker { get; set; }
